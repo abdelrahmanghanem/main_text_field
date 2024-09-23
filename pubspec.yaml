@@ -2,7 +2,7 @@ name: main_text_field
 description: "is a Flutter widget providing advanced customization for text input fields, ideal for developers needing flexible styling, validation, icons, and input control."
 version: 0.0.1
 homepage: https://github.com/abdelrahmanghanem
-repository:
+repository: https://github.com/abdelrahmanghanem/main_text_field.git
 environment:
   sdk: ^3.5.2
   flutter: ">=1.17.0"
@@ -15,11 +15,6 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
-
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
-
-# The following section is specific to Flutter packages.
 flutter:
 
   # To add assets to your package, add an assets section, like this:

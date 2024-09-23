@@ -1,3 +1,3 @@
 library main_text_field;
 
-export 'src/custom_text_field.dart';
+export 'src/main_text_field.dart';
