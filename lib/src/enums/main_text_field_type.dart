@@ -2,7 +2,15 @@ enum MainTextFieldType {
   text,
   number,
   phone,
-  email,
   userName,
-  password,
+  // email,
+
+  // password,
 }
+
+// inputFormatters: [
+// if (keyboardType == TextInputType.number ||
+// keyboardType == TextInputType.phone)
+// FilteringTextInputFormatter.digitsOnly,
+
+// ],

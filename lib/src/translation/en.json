@@ -1,7 +1,9 @@
 {
-  "can_not_be_empty": "Can not be empty",
+  "can_not_be_empty": "Field can't be empty",
   "invalid_phone_warning": "Invalid phone number",
   "invalid_value": "Invalid value",
+  "invalid_number_value": "Invalid number value",
+  "can_not_be_empty_or_zero": "Field can't be empty or zero",
   "can_not_be_zero": "Can not be zero",
   "invalid_email_with_example": "Invalid email Example: example@example.com",
   "password_format": "* Password must contain at least\n\n • Minimum length is 8 characters\n • 1 Capital letter and 1 small letter\n • 1 numbers\n • 1 special characters",

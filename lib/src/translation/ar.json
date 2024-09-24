@@ -2,6 +2,8 @@
   "can_not_be_empty": "لا يمكن أن يكون فارغًا",
   "invalid_phone_warning": "رقم الهاتف غير صالح",
   "invalid_value": "قيمة غير صالحة",
+  "invalid_number_value": "قيمة رقمية غير صالحة",
+  "can_not_be_empty_or_zero": "لا يمكن أن يكون فارغًا او صفرًا",
   "can_not_be_zero": "لا يمكن أن يكون صفرًا",
   "invalid_email_with_example": "البريد الإلكتروني غير صالح مثال: example@example.com",
   "password_format": "* يجب أن تحتوي كلمة المرور على الأقل على\n\n • الحد الأدنى للطول هو 8 أحرف\n • 1 حرف كبير و1 حرف صغير\n • 1 رقم\n • 1 رمز خاص",
