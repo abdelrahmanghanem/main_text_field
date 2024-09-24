@@ -1,363 +1,290 @@
 import 'package:flutter/cupertino.dart';
 import 'package:main_text_field/src/translation/validation_localizations.dart';
 
-bool isEmailValid(String email) {
-  return RegExp(
-          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-      .hasMatch(email);
-}
+/// Validates the format of an email address.
+///
+/// The email must be at least 8 characters long and match a valid email format.
+///
+/// - Parameters:
+///   - [value]: The input email address.
+///   - [context]: The current BuildContext for localization.
+///
+/// - Returns: A localized error message if the email is invalid, or null if valid.
+String? validateEmailFormat(String? value, BuildContext context) {
+  String trimmedValue = value?.trim() ?? '';
 
-bool isPhoneValid(String phone) {
-  return RegExp(r"^(?:[+0]9)?[0-9]{10,12}$").hasMatch(phone);
-}
-
-String? phoneValidation(String? value, BuildContext context) {
-  if (value == null || value.isEmpty) {
+  if (trimmedValue.isEmpty) {
     return ValidationMessage(key: "can_not_be_empty").localize(context) ??
-        'Can not be empty';
-  } else if (int.tryParse(value.trim()) == null || !isPhoneValid(value)) {
-    return ValidationMessage(key: 'invalid_phone_warning').localize(context) ??
-        'Invalid phone warning';
+        'Field cannot be empty';
   }
-  // if (!value.startsWith("+") || value.length < 8) {
-  // else if (value.length < 8) {
-  //   return "invalid_phone_warning";
-  // }
 
-  return null;
-}
-
-String? isEmptyValidation(String? value, BuildContext context) {
-  if (value == null || value.isEmpty || int.tryParse(value.trim()) == 0) {
-    return ValidationMessage(key: "").localize(context) ?? 'Can not be empty';
-  }
-  return null;
-}
-
-String? numberValidation(String? value, BuildContext context) {
-  if (value == null || value.isEmpty) {
-    return ValidationMessage(key: "can_not_be_empty").localize(context) ??
-        'Can not be empty';
-  } else if (int.tryParse(value.trim()) == null) {
-    return ValidationMessage(key: 'invalid_value').localize(context) ??
-        'Invalid value';
-  }
-  return null;
-}
-
-String? timeValidation(String? value, BuildContext context) {
-  if (value == null || value.isEmpty) {
-    return ValidationMessage(key: "can_not_be_empty").localize(context) ??
-        'Can not be empty';
-  } else if (int.tryParse(value.trim()) == 0) {
-    return ValidationMessage(key: 'can_not_be_zero').localize(context) ??
-        'Can not be zero';
-  }
-  return null;
-}
-
-String? otpValidation(String? value, BuildContext context) {
-  if (value == null || value.length < 4) {
-    return ValidationMessage(key: "please_enter_valid_code")
-            .localize(context) ??
-        'Please enter valid code';
-  }
-  return null;
-}
-
-const emailRegex =
-    r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$";
-
-String? emailValidation(String? value, BuildContext context) {
-  if (value == null || value.isEmpty) {
-    return ValidationMessage(key: "can_not_be_empty").localize(context) ??
-        'Can not be empty';
-  }
-  if (!value.contains("@") ||
-      !value.contains(".") ||
-      value.length < 8 ||
-      !RegExp(emailRegex).hasMatch(value)) {
+  if (trimmedValue.length < 8) {
     return ValidationMessage(key: 'invalid_email_with_example')
             .localize(context) ??
-        'Invalid email with example';
+        'Email must be at least 8 characters long';
+  }
+
+  const emailRegex =
+      r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$";
+
+  if (!RegExp(emailRegex).hasMatch(trimmedValue)) {
+    return ValidationMessage(key: 'invalid_email_with_example')
+            .localize(context) ??
+        'Invalid email format. Example: example@example.com';
   }
 
   return null;
 }
 
-String? passwordValidation(String? value, BuildContext context) {
-  // if (value!.trim().length < 8) {
-  //   return "minimum_length_is_8_characters";
-  // }
-  final RegExp rex = RegExp("(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\\W)");
-  if (value!.trim().length < 8 || !rex.hasMatch(value.trim())) {
+/// Validates the format of a phone number.
+///
+/// The phone number must contain between 10 and 12 digits and may start with '+'.
+///
+/// - Parameters:
+///   - [value]: The input phone number.
+///   - [context]: The current BuildContext for localization.
+///
+/// - Returns: A localized error message if the phone number is invalid, or null if valid.
+String? validatePhoneFormat(String? value, BuildContext context) {
+  const phoneRegex = r"^\+?[0-9]{10,12}$";
+  String trimmedValue = value?.trim() ?? '';
+
+  if (trimmedValue.isEmpty) {
+    return ValidationMessage(key: "can_not_be_empty").localize(context) ??
+        'Field cannot be empty';
+  }
+
+  if (!RegExp(phoneRegex).hasMatch(trimmedValue)) {
+    return ValidationMessage(key: 'invalid_phone_warning').localize(context) ??
+        'Invalid phone number. Must be 10-12 digits.';
+  }
+
+  return null;
+}
+
+/// Validates that the input is not empty or zero.
+///
+/// This is commonly used for non-empty fields like quantity or other numeric inputs.
+///
+/// - Parameters:
+///   - [value]: The input value.
+///   - [context]: The current BuildContext for localization.
+///
+/// - Returns: A localized error message if the input is empty or zero, or null if valid.
+String? validateNonEmptyFormat(String? value, BuildContext context) {
+  String trimmedValue = value?.trim() ?? '';
+
+  if (trimmedValue.isEmpty || int.tryParse(trimmedValue) == 0) {
+    return ValidationMessage(key: "can_not_be_empty_or_zero")
+            .localize(context) ??
+        'Field cannot be empty or zero';
+  }
+
+  return null;
+}
+
+/// Validates that the input is a valid number (integer or decimal).
+///
+/// - Parameters:
+///   - [value]: The input value.
+///   - [context]: The current BuildContext for localization.
+///
+/// - Returns: A localized error message if the input is not a valid number, or null if valid.
+String? validateNumberFormat(String? value, BuildContext context) {
+  String trimmedValue = value?.trim() ?? '';
+
+  if (trimmedValue.isEmpty) {
+    return ValidationMessage(key: "can_not_be_empty").localize(context) ??
+        'Field cannot be empty';
+  }
+
+  if (double.tryParse(trimmedValue) == null) {
+    return ValidationMessage(key: 'invalid_number_value').localize(context) ??
+        'Invalid number value';
+  }
+
+  return null;
+}
+
+/// Validates that the password meets security criteria.
+///
+/// The password must be at least 8 characters long and contain at least one
+/// digit, one lowercase letter, one uppercase letter, and one special character.
+///
+/// - Parameters:
+///   - [value]: The input password.
+///   - [context]: The current BuildContext for localization.
+///
+/// - Returns: A localized error message if the password is invalid, or null if valid.
+String? validatePasswordFormat(String? value, BuildContext context) {
+  String trimmedValue = value?.trim() ?? '';
+  final RegExp rex = RegExp(r"(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)");
+
+  if (trimmedValue.length < 8 || !rex.hasMatch(trimmedValue)) {
     return ValidationMessage(key: "password_format").localize(context) ??
-        'Password format';
+        '"* Password must contain at least\n\n • Minimum length is 8 characters\n • 1 Capital letter and 1 small letter\n • 1 numbers\n • 1 special characters"';
   }
+
   return null;
 }
 
-String? confirmPasswordValidation({
+/// Validates that the confirmed password matches the original password.
+///
+/// - Parameters:
+///   - [confirmPassword]: The input confirmation password.
+///   - [password]: The original password to compare against.
+///   - [context]: The current BuildContext for localization.
+///
+/// - Returns: A localized error message if the passwords do not match, or null if they match.
+String? validateConfirmPasswordFormat({
   required String? confirmPassword,
   required String? password,
   required BuildContext context,
 }) {
-  if (confirmPassword == null || confirmPassword.isEmpty) {
+  String trimmedConfirmPassword = confirmPassword?.trim() ?? '';
+  String trimmedPassword = password?.trim() ?? '';
+
+  if (trimmedConfirmPassword.isEmpty) {
     return ValidationMessage(key: "can_not_be_empty").localize(context) ??
-        'Can not be empty';
-  } else if (confirmPassword.trim() != password!.trim()) {
+        'Field cannot be empty';
+  }
+
+  if (trimmedConfirmPassword != trimmedPassword) {
     return ValidationMessage(key: "password_not_match").localize(context) ??
-        'Password not match';
+        'Passwords do not match';
   }
 
   return null;
 }
 
-String? titleValidation(String? value, BuildContext context) {
-  if (value == null || value.isEmpty) {
-    return ValidationMessage(key: 'can_not_be_empty').localize(context) ??
-        'Can not be empty';
-  }
-  return null;
-}
+/// Validates that a description is not empty and has a minimum length of 4 characters.
+///
+/// - Parameters:
+///   - [value]: The input description string.
+///   - [context]: The current BuildContext for localization.
+///
+/// - Returns: A localized error message if the description is invalid, or null if valid.
+String? validateDescription(String? value, BuildContext context) {
+  String trimmedValue = value?.trim() ?? '';
 
-String? codeValidation(String? value, BuildContext context) {
-  if (value == null || value.isEmpty) {
+  if (trimmedValue.isEmpty) {
     return ValidationMessage(key: 'can_not_be_empty').localize(context) ??
-        'Can not be empty';
-  } else if (value.trim().length < 4) {
+        'Field cannot be empty';
+  }
+
+  if (trimmedValue.length < 4) {
     return ValidationMessage(key: 'must_be_greater_than_three_digits')
             .localize(context) ??
-        'Must be greater than three digits';
-  } else if (value.trim().length > 10) {
-    return ValidationMessage(key: 'must_be_less_than_eleven_digits')
-            .localize(context) ??
-        'Must be less than eleven digits';
+        'Length must be greater than three characters';
   }
+
   return null;
 }
 
-String? arabicValidation(String? value, BuildContext context) {
-  final RegExp rex = RegExp(r'^[\u0600-\u06FF\u0660-\u0669\\s0-9 ]+$');
-  if (!rex.hasMatch(value!)) {
+/// Validates that the input contains only Arabic letters, Arabic numbers, or spaces.
+///
+/// The input must not be empty, and only Arabic letters (Unicode range \u0600-\u06FF),
+/// Arabic numbers (\u0660-\u0669), or spaces are allowed.
+///
+/// - Parameters:
+///   - [value]: The input string to validate.
+///   - [context]: The current BuildContext for localization.
+///
+/// - Returns: A localized error message if the input is invalid, or null if valid.
+String? validateArabic(String? value, BuildContext context) {
+  if (value == null || value.trim().isEmpty) {
+    return ValidationMessage(key: "can_not_be_empty").localize(context) ??
+        'Field cannot be empty';
+  }
+
+  final RegExp rex = RegExp(r'^[\u0600-\u06FF\u0660-\u0669\s]+$');
+
+  if (!rex.hasMatch(value.trim())) {
     return ValidationMessage(key: "only_arabic_letters").localize(context) ??
-        'Only Arabic letters';
+        'Only Arabic letters and numbers are allowed';
   }
+
   return null;
 }
 
-String? englishValidation(String? value, BuildContext context) {
-  final RegExp rex = RegExp(r'^[a-zA-Z0-9 ]+$');
-  if (!rex.hasMatch(value!)) {
+/// Validates that the input contains only English letters, numbers, or spaces.
+///
+/// The input must not be empty, and only English letters (a-z, A-Z), numbers (0-9),
+/// or spaces are allowed.
+///
+/// - Parameters:
+///   - [value]: The input string to validate.
+///   - [context]: The current BuildContext for localization.
+///
+/// - Returns: A localized error message if the input is invalid, or null if valid.
+String? validateEnglish(String? value, BuildContext context) {
+  if (value == null || value.trim().isEmpty) {
+    return ValidationMessage(key: "can_not_be_empty").localize(context) ??
+        'Field cannot be empty';
+  }
+
+  final RegExp rex = RegExp(r'^[a-zA-Z0-9\s]+$');
+
+  if (!rex.hasMatch(value.trim())) {
     return ValidationMessage(key: "only_english_letters").localize(context) ??
-        'Only english letters';
+        'Only English letters, numbers, and spaces are allowed';
   }
+
   return null;
 }
 
-String? reportIdValidation(String? value, BuildContext context) {
-  if (value == null || value.isEmpty) {
-    return ValidationMessage(key: 'can_not_be_empty').localize(context) ??
-        'Can not be empty';
-  }
-  return null;
-}
+String? validateTimeFormat(String? value, BuildContext context) {
+  // Trim the input to avoid unnecessary spaces
+  String trimmedValue = value?.trim() ?? '';
 
-String? equipmentValidation(String? value, BuildContext context) {
-  if (value == null || value.isEmpty) {
-    return ValidationMessage(key: 'can_not_be_empty').localize(context) ??
-        'Can not be empty';
+  // Check if the value is empty
+  if (trimmedValue.isEmpty) {
+    return ValidationMessage(key: "can_not_be_empty").localize(context) ??
+        'Field cannot be empty';
   }
-  return null;
-}
 
-String? equipmentCodeValidation(String? value, BuildContext context) {
-  if (value == null || value.isEmpty) {
-    return ValidationMessage(key: 'can_not_be_empty').localize(context) ??
-        'Can not be empty';
+  // Check if the value is a valid integer and not zero
+  int? parsedValue = int.tryParse(trimmedValue);
+  if (parsedValue == null || parsedValue == 0) {
+    return ValidationMessage(key: 'can_not_be_zero').localize(context) ??
+        'Can not be zero';
   }
-  return null;
-}
 
-String? actionValidation(String? value, BuildContext context) {
-  if (value == null || value.isEmpty) {
-    return ValidationMessage(key: 'can_not_be_empty').localize(context) ??
-        'Can not be empty';
-  }
-  return null;
-}
-
-String? noValidation(String? value, BuildContext context) {
-  return null;
-}
-
-String? maintainedByValidation(String? value, BuildContext context) {
-  if (value == null || value.isEmpty) {
-    return ValidationMessage(key: 'can_not_be_empty').localize(context) ??
-        'Can not be empty';
-  }
-  return null;
-}
-
-String? invoiceNumberValidation(String? value, BuildContext context) {
-  if (value == null || value.isEmpty) {
-    return ValidationMessage(key: 'can_not_be_empty').localize(context) ??
-        'Can not be empty';
-  }
-  return null;
-}
-
-String? costValidation(String? value, BuildContext context) {
-  if (value == null || value.isEmpty) {
-    return ValidationMessage(key: 'can_not_be_empty').localize(context) ??
-        'Can not be empty';
-  } else if (double.tryParse(value.trim()) == null) {
-    return ValidationMessage(key: 'invalid_value').localize(context) ??
-        'Invalid value';
-  } else if (double.parse(value.trim()) < 0) {
-    return ValidationMessage(key: 'value_be_greater_than_zero')
-            .localize(context) ??
-        'Value be greater than zero';
-  }
-  return null;
-}
-
-String? descriptionValidation(String? value, BuildContext context) {
-  if (value == null || value.isEmpty) {
-    return ValidationMessage(key: 'can_not_be_empty').localize(context) ??
-        'Can not be empty';
-  } else if (value.trim().length < 4) {
-    return ValidationMessage(key: 'must_be_greater_than_three_digits')
-            .localize(context) ??
-        'Must be greater than three digits';
-  }
   return null;
 }
 
 String? priceValidation(String? value, BuildContext context) {
-  if (value == null || value.trim().isEmpty) {
+  // Trim the input once
+  String trimmedValue = value?.trim() ?? '';
+
+  // Check if the value is empty
+  if (trimmedValue.isEmpty) {
     return ValidationMessage(key: 'minimum_length_is_1_digit')
             .localize(context) ??
         'Minimum length is 1 digit';
-  } else if (double.tryParse(value.trim()) == null) {
+  }
+
+  // Try to parse the value as a double
+  double? parsedValue = double.tryParse(trimmedValue);
+
+  // Check if the value is a valid number
+  if (parsedValue == null) {
     return ValidationMessage(key: 'invalid_value').localize(context) ??
         'Invalid value';
-  } else if (double.parse(value.trim()) == 0) {
+  }
+
+  // Check if the value is greater than zero
+  if (parsedValue == 0) {
     return ValidationMessage(key: 'value_be_greater_than_zero')
             .localize(context) ??
-        'Value be greater than zero';
-  } else if (value.trim().split('.')[0].length > 7) {
+        'Value must be greater than zero';
+  }
+
+  // Check if the number before the decimal point exceeds 7 digits
+  if (trimmedValue.split('.')[0].length > 7) {
     return ValidationMessage(key: 'max_length_is_7_digits').localize(context) ??
-        'Max length is 7 digits';
-  }
-  return null;
-}
-
-String? vatValidation(String? value, BuildContext context) {
-  if (value == null || value.trim().isEmpty) {
-    return ValidationMessage(key: 'minimum_length_is_1_digit')
-            .localize(context) ??
-        'Minimum length is 1 digit';
-  } else if (double.tryParse(value.trim()) == null) {
-    return ValidationMessage(key: 'invalid_value').localize(context) ?? '';
-  } else if (value.trim().split('.')[0].length > 2) {
-    return ValidationMessage(key: 'max_length_is_2_digits').localize(context) ??
-        '';
-  }
-  return null;
-}
-
-String? buySellPriceValidation(
-  String? buyValue,
-  BuildContext context,
-  String sellValue, {
-  bool isSellPrice = false,
-}) {
-  if (buyValue != null && sellValue.isNotEmpty) {
-    if (double.tryParse(sellValue.trim())! <
-        double.tryParse(buyValue.trim())!) {
-      return isSellPrice
-          ? ValidationMessage(key: 'sell_more_than_buy').localize(context) ?? ''
-          : ValidationMessage(key: 'buy_less_than_sell').localize(context) ??
-              '';
-    }
-  }
-  return null;
-}
-
-String? rangeValidation(String? min, String? max, BuildContext context) {
-  if (min == null || min.trim().isEmpty) {
-    return ValidationMessage(key: "please_enter_the_min_price")
-            .localize(context) ??
-        '';
-  }
-  if (max == null || max.trim().isEmpty) {
-    return ValidationMessage(key: "please_enter_the_max_price")
-            .localize(context) ??
-        '';
+        'Maximum length is 7 digits before the decimal point';
   }
 
-  final double? doubleMin = double.tryParse(min);
-  final double? doubleMax = double.tryParse(max);
-
-  if (doubleMin == null || doubleMin < 0) {
-    return ValidationMessage(key: "please_enter_valid_price")
-            .localize(context) ??
-        '';
-  }
-  if (doubleMax == null || doubleMax < 0) {
-    return ValidationMessage(key: "please_enter_valid_price")
-            .localize(context) ??
-        '';
-  }
-  if (doubleMin > doubleMax) {
-    return ValidationMessage(key: "min < max").localize(context) ?? '';
-  }
-  return null;
-}
-
-String? salaryRangeValidation(
-    String? value, String? min, String? max, BuildContext context) {
-  if (min == null || min.trim().isEmpty) {
-    return ValidationMessage(key: "please_enter_the_min_price")
-            .localize(context) ??
-        '';
-  }
-  if (max == null || max.trim().isEmpty) {
-    return ValidationMessage(key: "please_enter_the_max_price")
-            .localize(context) ??
-        '';
-  }
-  if (value == null || value.trim().isEmpty) {
-    return ValidationMessage(key: "please_enter_valid_value")
-            .localize(context) ??
-        '';
-  }
-
-  final double? doubleMin = double.tryParse(min);
-  final double? doubleMax = double.tryParse(max);
-  final double? doubleValue = double.tryParse(value);
-
-  if (doubleMin == null || doubleMin < 0) {
-    return ValidationMessage(key: "please_enter_valid_price")
-            .localize(context) ??
-        '';
-  }
-  if (doubleMax == null || doubleMax < 0) {
-    return ValidationMessage(key: "please_enter_valid_price")
-            .localize(context) ??
-        '';
-  }
-  if (doubleValue == null || doubleValue < 0) {
-    return ValidationMessage(key: "please_enter_valid_value")
-            .localize(context) ??
-        '';
-  }
-  if (doubleValue > doubleMax || doubleValue < doubleMin) {
-    return ValidationMessage(
-                key: "${"salary_must_be_between"} $doubleMax and $doubleMin")
-            .localize(context) ??
-        '';
-  }
   return null;
 }
