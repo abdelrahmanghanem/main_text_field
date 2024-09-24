@@ -3,20 +3,20 @@ import 'package:flutter/material.dart';
 import '../widgets/label_required_widget.dart';
 import 'get_outline_input_border.dart';
 
-enum DecorationStyleType {
+enum DecorationType {
   outline,
   underLine,
   filled,
 }
 
 InputDecoration getInputDecoration({
-  required DecorationStyleType decorationStyleType,
+  required DecorationType decorationType,
   required BuildContext context,
   required bool? filled,
   required Color? fillColor,
   required Color border,
   required bool isEnable,
-  required String? label,
+  required String? labelText,
   required String? hintText,
   required Widget? prefixIcon,
   required Widget? suffixIcon,
@@ -31,8 +31,8 @@ InputDecoration getInputDecoration({
   required TextStyle? hintStyle,
   // HintTextDirection? hintTextDirection,
 }) {
-  switch (decorationStyleType) {
-    case DecorationStyleType.outline:
+  switch (decorationType) {
+    case DecorationType.outline:
       final textTheme = Theme.of(context).textTheme;
       return InputDecoration(
         fillColor: fillColor,
@@ -51,6 +51,13 @@ InputDecoration getInputDecoration({
         border: getOutlineInputBorder(
           color: Theme.of(context).primaryColor,
         ),
+        // Label to display above the field when it is not empty.
+        label: labelText != null
+            ? LabelRequiredWidget(
+                label: labelText,
+                isRequired: (isRequired && showAsterisk),
+              )
+            : null,
         counterText: '',
         errorMaxLines: 6,
         prefixIconConstraints: prefixIconConstraints,
@@ -62,7 +69,6 @@ InputDecoration getInputDecoration({
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
         enabled: isEnable,
-        labelText: label,
         hintText: hintText,
         hintStyle: hintStyle ?? Theme.of(context).textTheme.bodyMedium,
         floatingLabelStyle:
@@ -71,7 +77,7 @@ InputDecoration getInputDecoration({
         contentPadding: contentPadding ?? EdgeInsets.zero,
       );
 
-    case DecorationStyleType.underLine:
+    case DecorationType.underLine:
       final error = Theme.of(context).colorScheme.error;
       final textTheme = Theme.of(context).textTheme;
       return InputDecoration(
@@ -124,9 +130,9 @@ InputDecoration getInputDecoration({
         // If false, the field will be disabled and not interactable.
         enabled: isEnable,
         // Label to display above the field when it is not empty.
-        label: label != null
+        label: labelText != null
             ? LabelRequiredWidget(
-                label: label,
+                label: labelText,
                 isRequired: (isRequired && showAsterisk),
               )
             : null,
@@ -147,7 +153,7 @@ InputDecoration getInputDecoration({
         counterText: '',
       );
 
-    case DecorationStyleType.filled:
+    case DecorationType.filled:
       final textTheme = Theme.of(context).textTheme;
       return InputDecoration(
         fillColor: fillColor,
@@ -176,7 +182,13 @@ InputDecoration getInputDecoration({
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
         enabled: isEnable,
-        labelText: label,
+        // Label to display above the field when it is not empty.
+        label: labelText != null
+            ? LabelRequiredWidget(
+                label: labelText,
+                isRequired: (isRequired && showAsterisk),
+              )
+            : null,
         hintText: hintText,
         hintStyle: hintStyle ?? Theme.of(context).textTheme.bodyMedium,
         floatingLabelStyle:

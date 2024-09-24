@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'functions/get_input_decoration.dart';
+import '../main_text_field.dart';
 
 /// A custom text form field widget that provides a variety of configurable options
 /// including borders, icons, validation, and text input handling.
-class MainTextFormField extends StatelessWidget {
+class MainTextField extends StatelessWidget {
   /// The width of the form field. If `null`, it takes up the available space.
   final double? width;
 
@@ -125,7 +125,7 @@ class MainTextFormField extends StatelessWidget {
   final Widget? suffixIcon;
 
   /// The label text displayed above the form field.
-  final String? label;
+  final String? labelText;
 
   /// Hint text displayed inside the field when it is empty.
   final String? hintText;
@@ -139,11 +139,16 @@ class MainTextFormField extends StatelessWidget {
   /// A flag that enables or disables the form field. Defaults to `true` (enabled).
   final bool isEnable;
 
+  /// A flag that enables or disables the form field. Defaults to `true` (enabled).
+  final Color? errorColor;
+  final Color? borderColor;
+
   /// A flag to show an asterisk (*) next to the label for required fields. Defaults to `true`.
   final bool showAsterisk;
 
-  final DecorationStyleType decorationStyleType;
-  const MainTextFormField({
+  final DecorationType decorationType;
+
+  const MainTextField({
     super.key,
     this.width,
     this.radius = 12,
@@ -185,20 +190,105 @@ class MainTextFormField extends StatelessWidget {
     this.prefixIconConstraints,
     this.suffixIconConstraints,
     this.hintText,
-    this.label,
+    this.labelText,
     this.suffixIcon,
     this.hintStyle,
-    this.showAsterisk = true,
+    this.showAsterisk = false,
     this.isEnable = true,
-    this.decorationStyleType = DecorationStyleType.outline,
+    this.decorationType = DecorationType.outline,
+    this.errorColor,
+    this.borderColor,
   });
+  factory MainTextField.email({
+    /// The width of the form field. If `null`, it takes up the available space.
+    double? width,
+    TextAlign? textAlign,
+    TextDirection? hintTextDirection,
+    String? initialValue,
+    String? Function(String? val)? validator,
+    void Function(String? val)? onSave,
+    void Function(String)? onChanged,
+    VoidCallback? onSubmit,
+    void Function()? onTap,
+    Color? labelColor,
+    bool? readOnly,
+    TextStyle? style,
+    FocusNode? focusNode,
+    TextEditingController? controller,
+    InputDecoration? decoration,
+    TextInputAction? textInputAction,
+    TextAlignVertical? textAlignVertical,
+    AutovalidateMode? autovalidateMode,
+    List<TextInputFormatter>? textInputFormatter,
+    TextCapitalization? textCapitalization,
+    bool? isRequired,
+    bool? filled,
+    EdgeInsets? contentPadding,
+    Color? fillColor,
+
+    /// The border when the field is focused.
+    InputBorder? focusedBorder,
+    Widget? prefixIcon,
+    BoxConstraints? prefixIconConstraints,
+    BoxConstraints? suffixIconConstraints,
+    InputBorder? enabledBorder,
+    Widget? suffixIcon,
+    String? labelText,
+    String? hintText,
+    bool? isDense,
+    TextStyle? hintStyle,
+    bool? isEnable,
+    Color? errorColor,
+    Color? borderColor,
+    required DecorationType decorationType,
+  }) {
+    return _MainEmailTextField(
+      showAsterisk: false,
+      width: width,
+      initialValue: initialValue,
+      onTap: onTap,
+      onChanged: onChanged,
+      onSubmit: onSubmit,
+      onSave: onSave,
+      validator: validator,
+      textAlign: textAlign,
+      textInputFormatter: textInputFormatter,
+      readOnly: readOnly ?? false,
+
+      controller: controller,
+      style: style,
+
+      autovalidateMode: autovalidateMode,
+
+      isRequired: isRequired ?? true,
+
+      textInputAction: textInputAction,
+      focusNode: focusNode,
+      textCapitalization: textCapitalization,
+      textAlignVertical: textAlignVertical,
+      // inputDecoration
+      decoration: decoration,
+      decorationType: decorationType,
+      borderColor: borderColor,
+      filled: filled,
+      fillColor: fillColor,
+      prefixIcon: prefixIcon,
+      suffixIcon: suffixIcon,
+      contentPadding: contentPadding,
+      prefixIconConstraints: prefixIconConstraints,
+      suffixIconConstraints: suffixIconConstraints,
+      labelText: labelText,
+      labelColor: labelColor,
+      errorColor: errorColor,
+      hintText: hintText,
+      hintStyle: hintStyle,
+      isDense: isDense = false,
+      isEnable: isEnable = true,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    // Define color constants for border and error states.
-    const border = Colors.grey;
-    const error = Colors.red;
-
     // Return a ConstrainedBox widget to apply maximum width constraints to the TextFormField.
     return ConstrainedBox(
       constraints: BoxConstraints(
@@ -218,6 +308,7 @@ class MainTextFormField extends StatelessWidget {
         initialValue: initialValue,
         // Controller for managing the text input and its state.
         controller: controller,
+
         // Style for the text in the field. Falls back to theme's labelMedium style if not provided.
         style: style ?? Theme.of(context).textTheme.labelMedium,
         // Determines when validation should occur (e.g., on every change, on submission).
@@ -259,7 +350,7 @@ class MainTextFormField extends StatelessWidget {
         // Decoration to apply to the field. Falls back to a default style if not provided.
         decoration: decoration ??
             getInputDecoration(
-              border: border,
+              border: borderColor ?? Colors.grey,
               context: context,
               filled: filled,
               fillColor: fillColor,
@@ -268,12 +359,12 @@ class MainTextFormField extends StatelessWidget {
               contentPadding: contentPadding,
               prefixIconConstraints: prefixIconConstraints,
               suffixIconConstraints: suffixIconConstraints,
-              label: label,
+              labelText: labelText,
               labelColor: labelColor,
-              error: error,
+              error: errorColor ?? Theme.of(context).colorScheme.error,
               hintText: hintText,
               hintStyle: hintStyle,
-              decorationStyleType: decorationStyleType,
+              decorationType: decorationType,
               isRequired: isRequired,
               showAsterisk: showAsterisk,
               isDense: isDense,
@@ -286,11 +377,138 @@ class MainTextFormField extends StatelessWidget {
   }
 }
 
-enum MainTextField {
-  text,
-  number,
-  phone,
-  email,
-  userName,
-  password,
+class _MainEmailTextField extends MainTextField {
+  const _MainEmailTextField({
+    required super.width,
+    required super.onTap,
+    required super.textInputFormatter,
+    required super.readOnly,
+    required super.initialValue,
+    required super.controller,
+    required super.style,
+    required super.autovalidateMode,
+    required super.textAlign,
+    required super.onChanged,
+    required super.onSubmit,
+    required super.onSave,
+    required super.isRequired,
+    required super.validator,
+    required super.textInputAction,
+    required super.focusNode,
+    required super.textCapitalization,
+    required super.textAlignVertical,
+
+    // input Decoration
+    required super.decoration,
+    required super.decorationType,
+    required super.borderColor,
+    required super.filled,
+    required super.fillColor,
+    required super.prefixIcon,
+    required super.suffixIcon,
+    required super.contentPadding,
+    required super.prefixIconConstraints,
+    required super.suffixIconConstraints,
+    required super.labelText,
+    required super.labelColor,
+    required super.errorColor,
+    required super.hintText,
+    required super.hintStyle,
+    required super.showAsterisk,
+    required super.isDense,
+    required super.isEnable,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        // Sets the maximum width of the TextFormField. Defaults to 370 if `maxWidth` is not provided.
+        maxWidth: (maxWidth ?? 370),
+      ),
+      child: TextFormField(
+        // Callback triggered when the form field is tapped.
+        onTap: onTap,
+
+        // Makes the field read-only if set to true. User cannot modify the text.
+        readOnly: readOnly,
+        // Initial value of the form field when it is created.
+        initialValue: initialValue,
+        // Controller for managing the text input and its state.
+        controller: controller,
+        // Style for the text in the field. Falls back to theme's labelMedium style if not provided.
+        style: style ?? Theme.of(context).textTheme.labelMedium,
+        // Determines when validation should occur (e.g., on every change, on submission).
+        autovalidateMode: autovalidateMode,
+        // Alignment of the text within the field. Defaults to start if not provided.
+        textAlign: textAlign ?? TextAlign.start,
+        // Callback triggered when the text in the field changes.
+        onChanged: onChanged,
+        // Callback triggered when editing is completed (e.g., pressing the "done" button).
+        onEditingComplete: onSubmit,
+        // Callback for saving the value of the form field.
+        onSaved: onSave,
+
+        // Validator function to validate the text input. Applied only if `isRequired` is true.
+        validator: validator ?? (val) => emailValidation(val, context),
+        // List of input formatters to format the text input.
+        inputFormatters: [
+          FilteringTextInputFormatter.deny(RegExp(r'\s')),
+          ...?textInputFormatter,
+        ],
+        // Type of keyboard to display (e.g., text, number) for the field.
+        keyboardType: TextInputType.emailAddress,
+        // Action button on the keyboard (e.g., "done", "next").
+        textInputAction: textInputAction,
+        // Node that manages the focus state of the field.
+        focusNode: focusNode,
+
+        // Callback triggered when the user taps outside the field. Closes the keyboard if `shouldCloseKeyboardOnTapOutside` is true.
+        onTapOutside: (event) {
+          if (shouldCloseKeyboardOnTapOutside) {
+            FocusManager.instance.primaryFocus?.unfocus();
+          }
+        },
+        // Text capitalization mode for the field.
+        textCapitalization: textCapitalization ?? TextCapitalization.none,
+        // Vertical alignment of the text within the field.
+        textAlignVertical: textAlignVertical ?? TextAlignVertical.center,
+        // Decoration to apply to the field. Falls back to a default style if not provided.
+        decoration: decoration ??
+            getInputDecoration(
+              border: borderColor ?? Colors.grey,
+              context: context,
+              filled: filled,
+              fillColor: fillColor,
+              prefixIcon: prefixIcon,
+              suffixIcon: suffixIcon,
+              contentPadding: contentPadding,
+              prefixIconConstraints: prefixIconConstraints,
+              suffixIconConstraints: suffixIconConstraints,
+              labelText: labelText,
+              labelColor: labelColor,
+              error: errorColor ?? Theme.of(context).colorScheme.error,
+              hintText: hintText,
+              hintStyle: hintStyle,
+              decorationType: decorationType,
+              isRequired: isRequired,
+              showAsterisk: showAsterisk,
+              isDense: isDense,
+              isEnable: isEnable,
+            ),
+
+        cursorHeight: 18,
+      ),
+    );
+  }
 }
+
+// inputFormatters: [
+// if (keyboardType == TextInputType.number ||
+// keyboardType == TextInputType.phone)
+// FilteringTextInputFormatter.digitsOnly,
+// if (keyboardType == TextInputType.emailAddress ||
+// keyboardType == TextInputType.visiblePassword)
+// FilteringTextInputFormatter.deny(RegExp(r'\s')),
+// ...?textInputFormatter,
+// ],

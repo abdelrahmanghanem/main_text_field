@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -28,11 +29,12 @@ class ValidationLocalizations {
     _localizedStrings = jsonMap.map((key, value) {
       return MapEntry(key, value.toString());
     });
-
+    log('Future<bool> load()${_localizedStrings}');
     return true;
   }
 
   String? translate(String? key) {
+    print('key => ${key}');
     return _localizedStrings[key!];
   }
 }
@@ -65,6 +67,7 @@ class ValidationMessage {
     this.message,
   });
   String? localize(BuildContext context) {
-    return ValidationLocalizations.of(context)?.translate(key) ?? message;
+    message = ValidationLocalizations.of(context)?.translate(key) ?? message;
+    return message;
   }
 }
