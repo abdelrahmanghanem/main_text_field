@@ -6,6 +6,10 @@
   "can_not_be_empty_or_zero": "لا يمكن أن يكون فارغًا او صفرًا",
   "can_not_be_zero": "لا يمكن أن يكون صفرًا",
   "invalid_email_with_example": "البريد الإلكتروني غير صالح مثال: example@example.com",
+  "minimum_length_is_8_characters": "• الحد الأدنى للطول هو 8 أحرف",
+  "1_capital_letter_and_1_small_letter": "• يجب أن يحتوي على حرف كبير واحد على الأقل وحرف صغير واحد",
+  "one_numbers": "• يجب أن يحتوي على رقم واحد على الأقل",
+  "one_special characters": "• يجب أن يحتوي على حرف خاص واحد على الأقل",
   "password_format": "* يجب أن تحتوي كلمة المرور على الأقل على\n\n • الحد الأدنى للطول هو 8 أحرف\n • 1 حرف كبير و1 حرف صغير\n • 1 رقم\n • 1 رمز خاص",
   "password_not_match": "كلمة المرور غير متطابقة",
   "only_arabic_letters": "الأحرف العربية فقط",
@@ -24,5 +28,11 @@
   "please_enter_valid_code": "يرجى إدخال رمز صالح",
   "value_be_greater_than_zero": "القيمة يجب أن تكون أكبر من صفر",
   "must_be_greater_than_three_digits": "يجب أن يكون أكبر من ثلاثة أرقام",
-  "must_be_less_than_eleven_digits": "يجب أن يكون أقل من أحد عشر رقمًا"
+  "must_be_less_than_eleven_digits": "يجب أن يكون أقل من أحد عشر رقمًا",
+  "please_enter_your_email": "يرجى أدخال بريدك الإلكتروني",
+  "please_confirm_password": "يرجى تأكيد كلمة المرور",
+  "please_enter_number": "يرجى أدخال رقم",
+  "please_enter_your_phone_number": "يرجى أدخال رقم هاتفك",
+  "please_enter_password": "يرجى أدخال كلمة المرور",
+  "": ""
 }

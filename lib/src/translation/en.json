@@ -6,6 +6,11 @@
   "can_not_be_empty_or_zero": "Field can't be empty or zero",
   "can_not_be_zero": "Can not be zero",
   "invalid_email_with_example": "Invalid email Example: example@example.com",
+  "minimum_length_is_8_characters": "• Minimum length is 8 characters",
+  "1_capital_letter_and_1_small_letter": "• Must contain at least one capital letter and 1 small letter",
+  "one_numbers": "• Must contain at least one numbers",
+  "one_special characters": "• Must contain at least one special characters",
+
   "password_format": "* Password must contain at least\n\n • Minimum length is 8 characters\n • 1 Capital letter and 1 small letter\n • 1 numbers\n • 1 special characters",
   "password_not_match": "Password not match",
   "only_arabic_letters": "Only arabic letters",
@@ -24,5 +29,11 @@
   "please_enter_valid_code": "Please enter valid code",
   "value_be_greater_than_zero": "Value be greater than zero",
   "must_be_greater_than_three_digits": "Must be greater than three digits",
-  "must_be_less_than_eleven_digits": "Must be less than eleven digits"
+  "must_be_less_than_eleven_digits": "Must be less than eleven digits",
+  "please_enter_your_email":  "Please enter your email",
+  "please_confirm_password": "Please confirm password",
+  "please_enter_number":  "Please enter number",
+  "please_enter_your_phone_number": "Please enter your phone number",
+  "please_enter_password":  "Please enter password",
+  "": ""
 }

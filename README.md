@@ -9,6 +9,7 @@ The `MainTextField` package is a customizable form field widget built for Flutte
 - [Usage](#usage)
     - [Basic Usage](#basic-usage)
     - [Factory Constructors](#factory-constructors)
+- [Localization](#localization)
 - [Customization Options](#customization-options)
 - [Properties](#properties)
 - [Factory Constructors](#factory-constructors)
@@ -17,8 +18,7 @@ The `MainTextField` package is a customizable form field widget built for Flutte
     - [Confirm Password](#confirm-password)
     - [Number](#number)
     - [Phone](#phone)
-- [Validation](#validation)
-- [License](#license)
+
 
 
 ## Features
@@ -36,7 +36,7 @@ The `MainTextField` package is a customizable form field widget built for Flutte
 
 ```yaml
 dependencies:
-  main_text_field: ^1.0.0
+  main_text_field: <latest_version>
 ```
 
 
@@ -59,20 +59,16 @@ MainTextField(
     }
     return null;
   },
-  onSave: (value) {
-    print("Saved value: $value");
-  },
 )
 ```
-* __Required Add__
+## Localization
 
-To enable validation message translations in the Factory Constructors, add `ValidationLocalizations.delegate` to your app's list of delegates:
+To enable validation message localization in the Factory Constructors, add `ValidationLocalizations.delegate` to your app's list of delegates:
 
 ```dart
   MaterialApp(
     localizationsDelegates: [
       ValidationLocalizations.delegate,
-      ...context.localizationDelegates,
    
       // other delegates...
     ],
@@ -124,47 +120,37 @@ The `MainTextField` class offers multiple factory constructors to create specifi
 ### Email
 
 ```dart
-MainTextField.email(
-  decorationType: DecorationType.outline,
-  labelText: "Email",
-  hintText: "Enter your email address",
-)
+  MainTextField.email(
+    onSaved: (val) => email = val,
+  )
 ```
 ### Password
 
 ```dart
   MainTextField.password(
-    decorationType: DecorationType.outline,
-    labelText: "Password",
-    hintText: "Enter your email password",
+    onSaved: (val) => password = val,
   )
 ```
 ### Confirm Password
 
 ```dart
   MainTextField.confirmPassword(
-    decorationType: DecorationType.outline,
     passwordValue: "password_value",
-    labelText: "Confirm Password",
-    hintText: "Re-enter your password",
+    onSaved: (val) => confirmPassword = val,
   )
 ```
 ### Number
 
 ```dart
   MainTextField.number(
-    decorationType: DecorationType.outline,
-    labelText: "Number",
-    hintText: "Enter your number",
+    onSaved: (val) => number = val,
   )
 ```
 ### Phone
 
 ```dart
   MainTextField.phone(
-    decorationType: DecorationType.outline,
-    labelText: "Phone",
-    hintText: "Enter your Phone number",
+    onSaved: (val) => phone = val,
   )
 ```
 

@@ -54,32 +54,22 @@ class _HomeScreenState extends State<HomeScreen> {
                 title: 'Email',
               ),
               MainTextField.email(
-                decorationType: DecorationType.filled,
-                contentPadding: const EdgeInsets.symmetric(horizontal: 12),
-                labelText: 'email',
                 onChanged: (val) => setState(() {
                   email = val;
                   isEmailEmpty = email?.isEmpty ?? true;
                 }),
-                onSave: (val) => email = val,
               ),
               const HeaderWidget(
                 title: 'Password',
               ),
               MainTextField.password(
-                isRequired: true,
-                borderColor: Colors.green,
                 radius: 20,
-                labelText: 'password',
                 width: 300,
-                decorationType: DecorationType.filled,
                 prefixIcon: const Icon(Icons.close),
-                contentPadding: const EdgeInsets.symmetric(horizontal: 12),
                 onChanged: (val) => setState(() {
                   password = val;
                   isPasswordEmpty = password?.isEmpty ?? true;
                 }),
-                onSave: (val) => password = val,
               ),
               const HeaderWidget(
                 title: 'Confirm Password',
@@ -89,25 +79,22 @@ class _HomeScreenState extends State<HomeScreen> {
                 isRequired: true,
                 radius: 20,
                 width: 300,
-                decorationType: DecorationType.filled,
                 prefixIcon: const Icon(Icons.close),
-                contentPadding: const EdgeInsets.symmetric(horizontal: 12),
+                // contentPadding: const EdgeInsets.symmetric(horizontal: ),
                 onChanged: (val) => setState(() {
                   confirmPassword = val;
                   isConfirmPasswordEmpty = confirmPassword?.isEmpty ?? true;
                 }),
-                onSave: (confirm) => confirmPassword = confirm,
               ),
               const HeaderWidget(
                 title: 'Number',
               ),
               MainTextField.number(
                 radius: 10,
-                labelText: 'number',
                 width: 300,
                 decorationType: DecorationType.filled,
                 contentPadding: const EdgeInsets.symmetric(horizontal: 12),
-                onSave: (val) => number = val,
+                onSaved: (val) => number = val,
               ),
               const SizedBox(height: 32),
               ElevatedButton(
@@ -123,7 +110,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     ? null
                     : () {
                         if (formKey.currentState?.validate() ?? false) {
-                          formKey.currentState?.save();
                           log('email => $email');
                           log('password => $password');
                           log('confirmPassword => $confirmPassword');
