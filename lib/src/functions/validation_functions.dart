@@ -116,13 +116,76 @@ String? validateNumberFormat(String? value, BuildContext context) {
 ///   - [context]: The current BuildContext for localization.
 ///
 /// - Returns: A localized error message if the password is invalid, or null if valid.
+// String? validatePasswordFormat(String? value, BuildContext context) {
+//   String trimmedValue = value?.trim() ?? '';
+//   final RegExp rex = RegExp(r"(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)");
+//
+//   if (trimmedValue.length < 8 || !rex.hasMatch(trimmedValue)) {
+//     return ValidationMessage(key: "password_format").localize(context) ??
+//         '"* Password must contain at least\n\n • Minimum length is 8 characters\n • 1 Capital letter and 1 small letter\n • 1 numbers\n • 1 special characters"';
+//   }
+//
+//   return null;
+// }
 String? validatePasswordFormat(String? value, BuildContext context) {
   String trimmedValue = value?.trim() ?? '';
-  final RegExp rex = RegExp(r"(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)");
 
-  if (trimmedValue.length < 8 || !rex.hasMatch(trimmedValue)) {
-    return ValidationMessage(key: "password_format").localize(context) ??
-        '"* Password must contain at least\n\n • Minimum length is 8 characters\n • 1 Capital letter and 1 small letter\n • 1 numbers\n • 1 special characters"';
+  // List to hold all validation errors
+
+  List<String> errorMessages = [];
+
+  // Regular expressions for different checks
+
+  final RegExp upperCaseRegExp = RegExp(r'[A-Z]');
+
+  final RegExp lowerCaseRegExp = RegExp(r'[a-z]');
+
+  final RegExp digitRegExp = RegExp(r'\d');
+
+  final RegExp specialCharRegExp = RegExp(r'\W');
+
+  // Perform checks and add error messages to the list if validation fails
+
+  if (trimmedValue.isEmpty) {
+    errorMessages.add(
+        ValidationMessage(key: "password_empty").localize(context) ??
+            '* Password cannot be empty');
+  }
+
+  if (trimmedValue.length < 8) {
+    errorMessages.add(
+        ValidationMessage(key: "password_length").localize(context) ??
+            '* Password must be at least 8 characters long');
+  }
+
+  if (!upperCaseRegExp.hasMatch(trimmedValue)) {
+    errorMessages.add(
+        ValidationMessage(key: "password_uppercase").localize(context) ??
+            '* Password must contain at least 1 uppercase letter');
+  }
+
+  if (!lowerCaseRegExp.hasMatch(trimmedValue)) {
+    errorMessages.add(
+        ValidationMessage(key: "password_lowercase").localize(context) ??
+            '* Password must contain at least 1 lowercase letter');
+  }
+
+  if (!digitRegExp.hasMatch(trimmedValue)) {
+    errorMessages.add(
+        ValidationMessage(key: "password_digit").localize(context) ??
+            '* Password must contain at least 1 digit');
+  }
+
+  if (!specialCharRegExp.hasMatch(trimmedValue)) {
+    errorMessages.add(
+        ValidationMessage(key: "password_special_char").localize(context) ??
+            '* Password must contain at least 1 special character');
+  }
+
+  // If there are errors, return them as a single string, otherwise return null
+
+  if (errorMessages.isNotEmpty) {
+    return errorMessages.join('\n');
   }
 
   return null;

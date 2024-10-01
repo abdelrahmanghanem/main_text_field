@@ -136,7 +136,7 @@ class _PasswordMainTextFieldState extends State<_PasswordMainTextField> {
                   : widget.hintText ??
                       ValidationMessage(key: 'please_enter_password')
                           .localize(context) ??
-                      'please enter password',
+                      'Please enter password',
               hintStyle: widget.hintStyle,
               decorationType: widget.decorationType,
               isRequired: widget.isRequired,
