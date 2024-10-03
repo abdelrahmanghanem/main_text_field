@@ -1,7 +1,11 @@
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:main_text_field/src/strings.dart';
 
 import '../main_text_field.dart';
+import 'widgets/header_text_field_widget.dart';
+import 'widgets/prefix_icon_widget.dart';
 
 part 'confirm_password_main_text_field.dart';
 part 'email_main_text_field.dart';
@@ -40,7 +44,7 @@ class MainTextField extends StatefulWidget {
   final String? Function(String? val)? validator;
 
   /// A callback function that saves the form field's value.
-  final void Function(String? val)? onSave;
+  final void Function(String? val)? onSaved;
 
   /// A callback function triggered when the input text changes.
   final void Function(String)? onChanged;
@@ -137,6 +141,8 @@ class MainTextField extends StatefulWidget {
   /// A flag that enables or disables the form field. Defaults to `true` (enabled).
   final Color? errorColor;
   final Color? borderColor;
+  final String? title;
+  final TextStyle? titleStyle;
 
   /// A flag to show an asterisk (*) next to the label for required fields. Defaults to `true`.
   final bool showAsterisk;
@@ -160,7 +166,7 @@ class MainTextField extends StatefulWidget {
     this.hintTextDirection,
     this.initialValue,
     this.validator,
-    this.onSave,
+    this.onSaved,
     this.onChanged,
     this.controller,
     this.focusNode,
@@ -178,7 +184,7 @@ class MainTextField extends StatefulWidget {
     this.filled,
     this.fillColor,
     this.focusedBorder,
-    this.contentPadding,
+    this.contentPadding = const EdgeInsets.symmetric(horizontal: 8),
     this.prefixIcon,
     this.enabledBorder,
     this.prefixIconConstraints,
@@ -190,6 +196,8 @@ class MainTextField extends StatefulWidget {
     this.hintStyle,
     this.errorColor,
     this.borderColor,
+    this.title,
+    this.titleStyle,
   });
   factory MainTextField.email({
     double width = 370,
@@ -200,7 +208,7 @@ class MainTextField extends StatefulWidget {
     bool isEnable = true,
     bool hideHintText = false,
     DecorationType decorationType = DecorationType.outline,
-    EdgeInsets contentPadding = const EdgeInsets.symmetric(horizontal: 12),
+    EdgeInsets contentPadding = const EdgeInsets.symmetric(horizontal: 8),
     TextAlign? textAlign,
     TextDirection? hintTextDirection,
     String? initialValue,
@@ -229,6 +237,9 @@ class MainTextField extends StatefulWidget {
     Widget? suffixIcon,
     String? labelText,
     String? hintText,
+    String? title,
+    bool hideTitle = false,
+    TextStyle? titleStyle,
     TextStyle? hintStyle,
     Color? errorColor,
     Color? borderColor,
@@ -236,12 +247,15 @@ class MainTextField extends StatefulWidget {
     return _EmailMainTextField(
       showAsterisk: false,
       width: width,
+      title: title,
+      hideTitle: hideTitle,
+      titleStyle: titleStyle,
       hideHintText: hideHintText,
       initialValue: initialValue,
       onTap: onTap,
       onChanged: onChanged,
       onSubmit: onSubmit,
-      onSave: onSave,
+      onSaved: onSave,
       validator: validator,
       textAlign: textAlign,
       textInputFormatter: textInputFormatter,
@@ -284,8 +298,10 @@ class MainTextField extends StatefulWidget {
     bool isEnable = true,
     bool hideHintText = false,
     DecorationType decorationType = DecorationType.outline,
-    EdgeInsets contentPadding = const EdgeInsets.symmetric(horizontal: 12),
+    EdgeInsets contentPadding = const EdgeInsets.symmetric(horizontal: 8),
     TextAlign? textAlign,
+    String? title,
+    TextStyle? titleStyle,
     TextDirection? hintTextDirection,
     String? initialValue,
     String? Function(String? val)? validator,
@@ -321,12 +337,14 @@ class MainTextField extends StatefulWidget {
   }) {
     return _PasswordMainTextField(
       width: width,
+      title: title,
+      titleStyle: titleStyle,
       hideHintText: hideHintText,
       initialValue: initialValue,
       onTap: onTap,
       onChanged: onChanged,
       onSubmit: onSubmit,
-      onSave: onSave,
+      onSaved: onSave,
       validator: validator,
       textAlign: textAlign,
       textInputFormatter: textInputFormatter,
@@ -369,10 +387,12 @@ class MainTextField extends StatefulWidget {
     bool isDense = false,
     bool isEnable = true,
     bool hideHintText = false,
-    EdgeInsets contentPadding = const EdgeInsets.symmetric(horizontal: 12),
+    EdgeInsets contentPadding = const EdgeInsets.symmetric(horizontal: 8),
     DecorationType decorationType = DecorationType.outline,
     required String? passwordValue,
     TextAlign? textAlign,
+    String? title,
+    TextStyle? titleStyle,
     TextDirection? hintTextDirection,
     String? initialValue,
     String? Function(String? val)? validator,
@@ -408,13 +428,15 @@ class MainTextField extends StatefulWidget {
   }) {
     return _ConfirmPasswordMainTextField(
       width: width,
+      title: title,
+      titleStyle: titleStyle,
       hideHintText: hideHintText,
       passwordValue: passwordValue,
       initialValue: initialValue,
       onTap: onTap,
       onChanged: onChanged,
       onSubmit: onSubmit,
-      onSave: onSave,
+      onSaved: onSave,
       validator: validator,
       textAlign: textAlign,
       textInputFormatter: textInputFormatter,
@@ -456,8 +478,10 @@ class MainTextField extends StatefulWidget {
     bool isDense = false,
     bool isEnable = true,
     bool hideHintText = false,
-    EdgeInsets? contentPadding = const EdgeInsets.symmetric(horizontal: 12),
+    EdgeInsets? contentPadding = const EdgeInsets.symmetric(horizontal: 8),
     TextAlign? textAlign,
+    String? title,
+    TextStyle? titleStyle,
     TextDirection? hintTextDirection,
     String? initialValue,
     String? Function(String? val)? validator,
@@ -494,11 +518,13 @@ class MainTextField extends StatefulWidget {
   }) {
     return _NumberMainTextField(
       width: width,
+      title: title,
+      titleStyle: titleStyle,
       initialValue: initialValue,
       onTap: onTap,
       onChanged: onChanged,
       onSubmit: onSubmit,
-      onSave: onSaved,
+      onSaved: onSaved,
       validator: validator,
       textAlign: textAlign,
       textInputFormatter: textInputFormatter,
@@ -536,17 +562,21 @@ class MainTextField extends StatefulWidget {
   factory MainTextField.phone({
     double width = 370,
     double radius = 12,
+    required String initialCountryCode,
     bool readOnly = false,
     bool isRequired = true,
     bool isDense = false,
     bool isEnable = true,
     bool hideHintText = false,
-    EdgeInsets? contentPadding = const EdgeInsets.symmetric(horizontal: 12),
+    EdgeInsets? contentPadding = const EdgeInsets.symmetric(horizontal: 8),
+    void Function(CountryCode)? onChangedCountryCode,
     TextAlign? textAlign,
+    String? title,
+    TextStyle? titleStyle,
     TextDirection? hintTextDirection,
     String? initialValue,
     String? Function(String? val)? validator,
-    void Function(String? val)? onSave,
+    void Function(String? val)? onSaved,
     void Function(String)? onChanged,
     VoidCallback? onSubmit,
     void Function()? onTap,
@@ -578,12 +608,16 @@ class MainTextField extends StatefulWidget {
     DecorationType decorationType = DecorationType.outline,
   }) {
     return _PhoneMainTextField(
+      countryCode: initialCountryCode,
+      onChangedCountryCode: onChangedCountryCode,
       width: width,
+      title: title,
+      titleStyle: titleStyle,
       initialValue: initialValue,
       onTap: onTap,
       onChanged: onChanged,
       onSubmit: onSubmit,
-      onSave: onSave,
+      onSaved: onSaved,
       validator: validator,
       textAlign: textAlign,
       textInputFormatter: textInputFormatter,
@@ -631,83 +665,104 @@ class _MainTextFieldState extends State<MainTextField> {
       constraints: BoxConstraints(
         // Sets the maximum width of the TextFormField. Defaults to 370 if `maxWidth` is not provided.
         maxWidth: widget.width,
+        // maxHeight: widget.height,
       ),
-      child: TextFormField(
-        // Limits the maximum number of characters that can be entered in the field.
-        maxLength: widget.maxLength,
-        // Callback triggered when the form field is tapped.
-        onTap: widget.onTap,
-        // List of input formatters to format the text input.
-        inputFormatters: widget.textInputFormatter,
-        // Makes the field read-only if set to true. User cannot modify the text.
-        readOnly: widget.readOnly,
-        // Initial value of the form field when it is created.
-        initialValue: widget.initialValue,
-        // Controller for managing the text input and its state.
-        controller: widget.controller,
-
-        // Style for the text in the field. Falls back to theme's labelMedium style if not provided.
-        style: widget.style ?? Theme.of(context).textTheme.labelMedium,
-        // Determines when validation should occur (e.g., on every change, on submission).
-        autovalidateMode: widget.autoValidateMode,
-        // Alignment of the text within the field. Defaults to start if not provided.
-        textAlign: widget.textAlign ?? TextAlign.start,
-        // Callback triggered when the text in the field changes.
-        onChanged: widget.onChanged,
-        // Callback triggered when editing is completed (e.g., pressing the "done" button).
-        onEditingComplete: widget.onSubmit,
-        // Callback for saving the value of the form field.
-        onSaved: widget.onSave,
-        // Minimum number of lines to show when the field is not expanded.
-        minLines: widget.minLines,
-        // Maximum number of lines to show when the field is expanded.
-        maxLines: widget.maxLines,
-        // Validator function to validate the text input. Applied only if `isRequired` is true.
-        validator: widget.isRequired ? widget.validator : null,
-        // Type of keyboard to display (e.g., text, number) for the field.
-        keyboardType: widget.keyboardType,
-        // Action button on the keyboard (e.g., "done", "next").
-        textInputAction: widget.textInputAction,
-        // Node that manages the focus state of the field.
-        focusNode: widget.focusNode,
-
-        // Character used to obscure text, default is '*'.
-        obscuringCharacter: '*',
-        // Callback triggered when the user taps outside the field. Closes the keyboard if `shouldCloseKeyboardOnTapOutside` is true.
-        onTapOutside: (event) {
-          FocusManager.instance.primaryFocus?.unfocus();
-        },
-        // Text capitalization mode for the field.
-        textCapitalization:
-            widget.textCapitalization ?? TextCapitalization.none,
-        // Vertical alignment of the text within the field.
-        textAlignVertical: widget.textAlignVertical ?? TextAlignVertical.center,
-        // Decoration to apply to the field. Falls back to a default style if not provided.
-        decoration: widget.decoration ??
-            getInputDecoration(
-              border: widget.borderColor ?? Colors.grey,
-              context: context,
-              filled: widget.filled,
-              fillColor: widget.fillColor,
-              prefixIcon: widget.prefixIcon,
-              suffixIcon: widget.suffixIcon,
-              contentPadding: widget.contentPadding,
-              prefixIconConstraints: widget.prefixIconConstraints,
-              suffixIconConstraints: widget.suffixIconConstraints,
-              labelText: widget.labelText,
-              labelColor: widget.labelColor,
-              error: widget.errorColor ?? Theme.of(context).colorScheme.error,
-              hintText: widget.hintText,
-              hintStyle: widget.hideHintText ? null : widget.hintStyle,
-              decorationType: widget.decorationType,
-              isRequired: widget.isRequired,
-              showAsterisk: widget.showAsterisk,
-              isDense: widget.isDense,
-              isEnable: widget.isEnable,
-              radius: widget.radius,
+      child: Column(
+        children: [
+          if (widget.title != null)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: HeaderFieldWidget(
+                    title: '${widget.title}',
+                    isRequired: widget.isRequired,
+                    titleStyle: widget.titleStyle,
+                  ),
+                ),
+                // button ?? const SizedBox.shrink()
+              ],
             ),
+          TextFormField(
+            // Limits the maximum number of characters that can be entered in the field.
+            maxLength: widget.maxLength,
+            // Callback triggered when the form field is tapped.
+            onTap: widget.onTap,
+            // List of input formatters to format the text input.
+            inputFormatters: widget.textInputFormatter,
+            // Makes the field read-only if set to true. User cannot modify the text.
+            readOnly: widget.readOnly,
+            // Initial value of the form field when it is created.
+            initialValue: widget.initialValue,
+            // Controller for managing the text input and its state.
+            controller: widget.controller,
 
-        cursorHeight: 18,
+            // Style for the text in the field. Falls back to theme's labelMedium style if not provided.
+            style: widget.style ?? Theme.of(context).textTheme.labelMedium,
+            // Determines when validation should occur (e.g., on every change, on submission).
+            autovalidateMode: widget.autoValidateMode,
+            // Alignment of the text within the field. Defaults to start if not provided.
+            textAlign: widget.textAlign ?? TextAlign.start,
+            // Callback triggered when the text in the field changes.
+            onChanged: widget.onChanged,
+            // Callback triggered when editing is completed (e.g., pressing the "done" button).
+            onEditingComplete: widget.onSubmit,
+            // Callback for saving the value of the form field.
+            onSaved: widget.onSaved,
+            // Minimum number of lines to show when the field is not expanded.
+            minLines: widget.minLines,
+            // Maximum number of lines to show when the field is expanded.
+            maxLines: widget.maxLines,
+            // Validator function to validate the text input. Applied only if `isRequired` is true.
+            validator: widget.isRequired ? widget.validator : null,
+            // Type of keyboard to display (e.g., text, number) for the field.
+            keyboardType: widget.keyboardType,
+            // Action button on the keyboard (e.g., "done", "next").
+            textInputAction: widget.textInputAction,
+            // Node that manages the focus state of the field.
+            focusNode: widget.focusNode,
+
+            // Character used to obscure text, default is '*'.
+            obscuringCharacter: '*',
+            // Callback triggered when the user taps outside the field. Closes the keyboard if `shouldCloseKeyboardOnTapOutside` is true.
+            onTapOutside: (event) {
+              FocusManager.instance.primaryFocus?.unfocus();
+            },
+            // Text capitalization mode for the field.
+            textCapitalization:
+                widget.textCapitalization ?? TextCapitalization.none,
+            // Vertical alignment of the text within the field.
+            textAlignVertical:
+                widget.textAlignVertical ?? TextAlignVertical.center,
+            // Decoration to apply to the field. Falls back to a default style if not provided.
+            decoration: widget.decoration ??
+                getInputDecoration(
+                  border: widget.borderColor ?? Colors.grey,
+                  context: context,
+                  filled: widget.filled,
+                  fillColor: widget.fillColor,
+                  prefixIcon: widget.prefixIcon,
+                  suffixIcon: widget.suffixIcon,
+                  contentPadding: widget.contentPadding,
+                  prefixIconConstraints: widget.prefixIconConstraints,
+                  suffixIconConstraints: widget.suffixIconConstraints,
+                  labelText: widget.labelText,
+                  labelColor: widget.labelColor,
+                  error:
+                      widget.errorColor ?? Theme.of(context).colorScheme.error,
+                  hintText: widget.hintText,
+                  hintStyle: widget.hideHintText ? null : widget.hintStyle,
+                  decorationType: widget.decorationType,
+                  isRequired: widget.isRequired,
+                  showAsterisk: widget.showAsterisk,
+                  isDense: widget.isDense,
+                  isEnable: widget.isEnable,
+                  radius: widget.radius,
+                ),
+
+            cursorHeight: 18,
+          ),
+        ],
       ),
     );
   }

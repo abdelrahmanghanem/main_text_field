@@ -3,8 +3,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:main_text_field/main_text_field.dart';
 
-import 'header_widget.dart';
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -14,19 +12,23 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final formKey = GlobalKey<FormState>();
-  String? textField1;
-  String? email;
-  String? password;
-  String? number;
-  String? confirmPassword;
+  // String? textField1;
+  // String? email;
+  // String? password;
+  //
+  // String? phone;
+  // String? confirmPassword;
+  //
+  // bool get isAnyFieldEmpty =>
+  //     isEmailEmpty || isPasswordEmpty || isConfirmPasswordEmpty;
+  //
+  // bool isEmailEmpty = true;
+  // bool isPasswordEmpty = true;
+  // bool isConfirmPasswordEmpty = true;
 
-  bool get isAnyFieldEmpty =>
-      isEmailEmpty || isPasswordEmpty || isConfirmPasswordEmpty;
-
-  bool isEmailEmpty = true;
-  bool isPasswordEmpty = true;
-  bool isConfirmPasswordEmpty = true;
-
+  String? phone;
+  String? countryCode;
+  String initialCountryCode = '+20';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,61 +42,54 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const HeaderWidget(
-                title: 'MainTextField',
-              ),
-              MainTextField(
-                contentPadding: const EdgeInsets.symmetric(horizontal: 12),
-                width: 120,
-                initialValue: 'welcome',
-                isRequired: true,
-                onSave: (val) => textField1 = val,
-              ),
-              const HeaderWidget(
-                title: 'Email',
-              ),
-              MainTextField.email(
-                onChanged: (val) => setState(() {
-                  email = val;
-                  isEmailEmpty = email?.isEmpty ?? true;
-                }),
-              ),
-              const HeaderWidget(
-                title: 'Password',
-              ),
-              MainTextField.password(
-                radius: 20,
-                width: 300,
-                prefixIcon: const Icon(Icons.close),
-                onChanged: (val) => setState(() {
-                  password = val;
-                  isPasswordEmpty = password?.isEmpty ?? true;
-                }),
-              ),
-              const HeaderWidget(
-                title: 'Confirm Password',
-              ),
-              MainTextField.confirmPassword(
-                passwordValue: password,
-                isRequired: true,
-                radius: 20,
-                width: 300,
-                prefixIcon: const Icon(Icons.close),
-                // contentPadding: const EdgeInsets.symmetric(horizontal: ),
-                onChanged: (val) => setState(() {
-                  confirmPassword = val;
-                  isConfirmPasswordEmpty = confirmPassword?.isEmpty ?? true;
-                }),
-              ),
-              const HeaderWidget(
-                title: 'Number',
-              ),
-              MainTextField.number(
-                radius: 10,
-                width: 300,
-                decorationType: DecorationType.filled,
-                contentPadding: const EdgeInsets.symmetric(horizontal: 12),
-                onSaved: (val) => number = val,
+              // MainTextField(
+              //   title: 'MainTextField',
+              //   contentPadding: const EdgeInsets.symmetric(horizontal: 12),
+              //   initialValue: 'welcome',
+              //   isRequired: false,
+              //   onSaved: (val) => textField1 = val,
+              // ),
+              // MainTextField.email(
+              //   onChanged: (val) => setState(() {
+              //     email = val;
+              //     isEmailEmpty = email?.isEmpty ?? true;
+              //   }),
+              // ),
+              // const SizedBox(
+              //   height: 12,
+              // ),
+              // MainTextField.password(
+              //   onChanged: (val) => setState(() {
+              //     password = val;
+              //     isPasswordEmpty = password?.isEmpty ?? true;
+              //   }),
+              // ),
+              // const SizedBox(
+              //   height: 12,
+              // ),
+              // MainTextField.confirmPassword(
+              //   passwordValue: password,
+              //   onChanged: (val) => setState(() {
+              //     confirmPassword = val;
+              //     isConfirmPasswordEmpty = confirmPassword?.isEmpty ?? true;
+              //   }),
+              // ),
+              // const SizedBox(
+              //   height: 12,
+              // ),
+              // MainTextField.number(
+              //   onSaved: (val) => number = val,
+              // ),
+              // const SizedBox(
+              //   height: 12,
+              // ),
+              MainTextField.phone(
+                initialCountryCode: initialCountryCode,
+                textInputFormatter: [],
+                onChangedCountryCode: (value) {
+                  countryCode = value.toString();
+                },
+                onChanged: (val) => phone = val,
               ),
               const SizedBox(height: 32),
               ElevatedButton(
@@ -106,16 +101,21 @@ class _HomeScreenState extends State<HomeScreen> {
                   backgroundColor: Theme.of(context).primaryColor,
                   foregroundColor: Colors.white,
                 ),
-                onPressed: isAnyFieldEmpty
-                    ? null
-                    : () {
-                        if (formKey.currentState?.validate() ?? false) {
-                          log('email => $email');
-                          log('password => $password');
-                          log('confirmPassword => $confirmPassword');
-                          log('number => $number');
-                        }
-                      },
+                onPressed: () {
+                  if (formKey.currentState?.validate() ?? false) {
+                    log('number => ${countryCode ?? initialCountryCode}$phone');
+                  }
+                },
+                // onPressed: isAnyFieldEmpty
+                //     ? null
+                //     : () {
+                //         if (formKey.currentState?.validate() ?? false) {
+                //           log('email => $email');
+                //           log('password => $password');
+                //           log('confirmPassword => $confirmPassword');
+                //           log('number => $number');
+                //         }
+                //       },
                 child: const Text(
                   'Send',
                   style: TextStyle(fontSize: 18),

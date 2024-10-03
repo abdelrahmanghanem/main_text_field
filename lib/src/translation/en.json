@@ -1,4 +1,9 @@
 {
+  "number_": "Number",
+  "phone_": "Phone",
+  "email_": "Email",
+  "password_": "Password",
+  "confirm_password": "Confirm Password",
   "can_not_be_empty": "Field can't be empty",
   "invalid_phone_warning": "Invalid phone number",
   "invalid_value": "Invalid value",
