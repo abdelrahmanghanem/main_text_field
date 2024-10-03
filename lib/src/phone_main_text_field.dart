@@ -2,10 +2,12 @@ part of 'main_text_field.dart';
 
 class _PhoneMainTextField extends MainTextField {
   final void Function(CountryCode)? onChangedCountryCode;
+  final List<String> favoriteCountryCode;
   final String? countryCode;
   const _PhoneMainTextField({
     required this.onChangedCountryCode,
     required this.countryCode,
+    required this.favoriteCountryCode,
     required super.width,
     required super.title,
     required super.titleStyle,
@@ -76,104 +78,122 @@ class _PhoneMainTextFieldState extends State<_PhoneMainTextField> {
               // button ?? const SizedBox.shrink()
             ],
           ),
-          TextFormField(
-            // Callback triggered when the form field is tapped.
-            onTap: widget.onTap,
-            // Makes the field read-only if set to true. User cannot modify the text.
-            readOnly: widget.readOnly,
-            // Initial value of the form field when it is created.
-            initialValue: widget.initialValue,
-            // Controller for managing the text input and its state.
-            controller: widget.controller,
-            // Style for the text in the field. Falls back to theme's labelMedium style if not provided.
-            style: widget.style ?? Theme.of(context).textTheme.labelMedium,
-            // Determines when validation should occur (e.g., on every change, on submission).
-            autovalidateMode: widget.autoValidateMode,
-            // Alignment of the text within the field. Defaults to start if not provided.
-            textAlign: widget.textAlign ?? TextAlign.start,
-            // Callback triggered when the text in the field changes.
-            onChanged: widget.onChanged,
-            // Callback triggered when editing is completed (e.g., pressing the "done" button).
-            onEditingComplete: widget.onSubmit,
-            // Callback for saving the value of the form field.
-            onSaved: widget.onSaved,
+          Directionality(
+            textDirection: TextDirection.ltr,
+            child: TextFormField(
+              // Callback triggered when the form field is tapped.
+              onTap: widget.onTap,
+              // Makes the field read-only if set to true. User cannot modify the text.
+              readOnly: widget.readOnly,
+              // Initial value of the form field when it is created.
+              initialValue: widget.initialValue,
+              // Controller for managing the text input and its state.
+              controller: widget.controller,
+              // Style for the text in the field. Falls back to theme's labelMedium style if not provided.
+              style: widget.style ?? Theme.of(context).textTheme.labelMedium,
+              // Determines when validation should occur (e.g., on every change, on submission).
+              autovalidateMode: widget.autoValidateMode,
+              // Alignment of the text within the field. Defaults to start if not provided.
+              textAlign: widget.textAlign ?? TextAlign.start,
+              // Callback triggered when the text in the field changes.
+              onChanged: widget.onChanged,
+              // Callback triggered when editing is completed (e.g., pressing the "done" button).
+              onEditingComplete: widget.onSubmit,
+              // Callback for saving the value of the form field.
+              onSaved: widget.onSaved,
 
-            // Validator function to validate the text input. Applied only if `isRequired` is true.
-            validator:
-                widget.validator ?? (val) => validatePhoneFormat(val, context),
-            // List of input formatters to format the text input.
-            inputFormatters: [
-              FilteringTextInputFormatter.digitsOnly,
-              ...?widget.textInputFormatter,
-            ],
-            // Type of keyboard to display (e.g., text, number) for the field.
-            keyboardType: TextInputType.phone,
+              // Validator function to validate the text input. Applied only if `isRequired` is true.
+              validator: widget.validator ??
+                  (val) => validatePhoneFormat(val, context),
+              // List of input formatters to format the text input.
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly,
+                NoLeadingZeroInputFormatter(),
+                ...?widget.textInputFormatter,
+              ],
+              // Type of keyboard to display (e.g., text, number) for the field.
+              keyboardType: TextInputType.phone,
 
-            // Action button on the keyboard (e.g., "done", "next").
-            textInputAction: widget.textInputAction,
-            // Node that manages the focus state of the field.
-            focusNode: widget.focusNode,
+              // Action button on the keyboard (e.g., "done", "next").
+              textInputAction: widget.textInputAction,
+              // Node that manages the focus state of the field.
+              focusNode: widget.focusNode,
 
-            // Callback triggered when the user taps outside the field. Closes the keyboard if `shouldCloseKeyboardOnTapOutside` is true.
-            onTapOutside: (event) {
-              FocusManager.instance.primaryFocus?.unfocus();
-            },
-            // Text capitalization mode for the field.
-            textCapitalization:
-                widget.textCapitalization ?? TextCapitalization.none,
-            // Vertical alignment of the text within the field.
-            textAlignVertical:
-                widget.textAlignVertical ?? TextAlignVertical.center,
-            // Decoration to apply to the field. Falls back to a default style if not provided.
-            decoration: widget.decoration ??
-                getInputDecoration(
-                  border: widget.borderColor ?? Colors.grey,
-                  context: context,
-                  filled: widget.filled,
-                  fillColor: widget.fillColor,
-                  prefixIcon: widget.prefixIcon ??
-                      CountryCodePicker(
-                        dialogSize: const Size(300, 500),
-                        textStyle: Theme.of(context).textTheme.bodyMedium,
-                        onChanged: widget.onChangedCountryCode,
-                        padding: EdgeInsets.zero,
-                        initialSelection: widget.countryCode,
-                        flagWidth: 30,
-                        showCountryOnly: false,
-                        showOnlyCountryWhenClosed: false,
-                        favorite: const ['+20', '+966'],
-                        flagDecoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4),
+              // Callback triggered when the user taps outside the field. Closes the keyboard if `shouldCloseKeyboardOnTapOutside` is true.
+              onTapOutside: (event) {
+                FocusManager.instance.primaryFocus?.unfocus();
+              },
+              // Text capitalization mode for the field.
+              textCapitalization:
+                  widget.textCapitalization ?? TextCapitalization.none,
+              // Vertical alignment of the text within the field.
+              textAlignVertical:
+                  widget.textAlignVertical ?? TextAlignVertical.center,
+              // Decoration to apply to the field. Falls back to a default style if not provided.
+              decoration: widget.decoration ??
+                  getInputDecoration(
+                    border: widget.borderColor ?? Colors.grey,
+                    context: context,
+                    filled: widget.filled,
+                    fillColor: widget.fillColor,
+                    prefixIcon: widget.prefixIcon ??
+                        CountryCodePicker(
+                          dialogSize: const Size(300, 500),
+                          textStyle: Theme.of(context).textTheme.bodyMedium,
+                          onChanged: widget.onChangedCountryCode,
+                          padding: EdgeInsets.zero,
+                          initialSelection: widget.countryCode,
+                          flagWidth: 30,
+                          showCountryOnly: false,
+                          showOnlyCountryWhenClosed: false,
+                          favorite: widget.favoriteCountryCode,
+                          flagDecoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4),
+                          ),
                         ),
-                      ),
-                  suffixIcon: widget.suffixIcon,
-                  contentPadding: widget.contentPadding,
-                  prefixIconConstraints: widget.prefixIconConstraints,
-                  suffixIconConstraints: widget.suffixIconConstraints,
-                  labelText: widget.labelText,
-                  labelColor: widget.labelColor,
-                  error:
-                      widget.errorColor ?? Theme.of(context).colorScheme.error,
-                  hintText: widget.hideHintText
-                      ? null
-                      : widget.hintText ??
-                          ValidationMessage(
-                                  key: 'please_enter_your_phone_number')
-                              .localize(context) ??
-                          'Please enter your phone number',
-                  hintStyle: widget.hintStyle,
-                  decorationType: widget.decorationType,
-                  isRequired: widget.isRequired,
-                  showAsterisk: widget.showAsterisk,
-                  isDense: widget.isDense,
-                  isEnable: widget.isEnable,
-                  radius: widget.radius,
-                ),
+                    suffixIcon: widget.suffixIcon,
+                    contentPadding: widget.contentPadding,
+                    prefixIconConstraints: widget.prefixIconConstraints,
+                    suffixIconConstraints: widget.suffixIconConstraints,
+                    labelText: widget.labelText,
+                    labelColor: widget.labelColor,
+                    error: widget.errorColor ??
+                        Theme.of(context).colorScheme.error,
+                    hintText: widget.hideHintText
+                        ? null
+                        : widget.hintText ??
+                            ValidationMessage(
+                                    key: 'please_enter_your_phone_number')
+                                .localize(context) ??
+                            'Please enter your phone number',
+                    hintStyle: widget.hintStyle,
+                    decorationType: widget.decorationType,
+                    isRequired: widget.isRequired,
+                    showAsterisk: widget.showAsterisk,
+                    isDense: widget.isDense,
+                    isEnable: widget.isEnable,
+                    radius: widget.radius,
+                  ),
 
-            cursorHeight: 18,
+              cursorHeight: 18,
+            ),
           ),
         ],
       ),
     );
+  }
+}
+
+class NoLeadingZeroInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    // If the new value starts with '0' and is not empty, revert to the old value
+    if (newValue.text.startsWith('0')) {
+      return oldValue;
+    }
+    return newValue;
   }
 }

@@ -12,19 +12,19 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final formKey = GlobalKey<FormState>();
-  // String? textField1;
-  // String? email;
-  // String? password;
-  //
-  // String? phone;
-  // String? confirmPassword;
-  //
-  // bool get isAnyFieldEmpty =>
-  //     isEmailEmpty || isPasswordEmpty || isConfirmPasswordEmpty;
-  //
-  // bool isEmailEmpty = true;
-  // bool isPasswordEmpty = true;
-  // bool isConfirmPasswordEmpty = true;
+  String? textField1;
+  String? email;
+  String? password;
+
+  String? number;
+  String? confirmPassword;
+
+  bool get isAnyFieldEmpty =>
+      isEmailEmpty || isPasswordEmpty || isConfirmPasswordEmpty;
+
+  bool isEmailEmpty = true;
+  bool isPasswordEmpty = true;
+  bool isConfirmPasswordEmpty = true;
 
   String? phone;
   String? countryCode;
@@ -42,50 +42,48 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // MainTextField(
-              //   title: 'MainTextField',
-              //   contentPadding: const EdgeInsets.symmetric(horizontal: 12),
-              //   initialValue: 'welcome',
-              //   isRequired: false,
-              //   onSaved: (val) => textField1 = val,
-              // ),
-              // MainTextField.email(
-              //   onChanged: (val) => setState(() {
-              //     email = val;
-              //     isEmailEmpty = email?.isEmpty ?? true;
-              //   }),
-              // ),
-              // const SizedBox(
-              //   height: 12,
-              // ),
-              // MainTextField.password(
-              //   onChanged: (val) => setState(() {
-              //     password = val;
-              //     isPasswordEmpty = password?.isEmpty ?? true;
-              //   }),
-              // ),
-              // const SizedBox(
-              //   height: 12,
-              // ),
-              // MainTextField.confirmPassword(
-              //   passwordValue: password,
-              //   onChanged: (val) => setState(() {
-              //     confirmPassword = val;
-              //     isConfirmPasswordEmpty = confirmPassword?.isEmpty ?? true;
-              //   }),
-              // ),
-              // const SizedBox(
-              //   height: 12,
-              // ),
-              // MainTextField.number(
-              //   onSaved: (val) => number = val,
-              // ),
-              // const SizedBox(
-              //   height: 12,
-              // ),
+              MainTextField(
+                title: 'MainTextField',
+                contentPadding: const EdgeInsets.symmetric(horizontal: 12),
+                initialValue: 'welcome',
+                isRequired: false,
+                onSaved: (val) => textField1 = val,
+              ),
+              MainTextField.email(
+                onChanged: (val) => setState(() {
+                  email = val;
+                  isEmailEmpty = email?.isEmpty ?? true;
+                }),
+              ),
+              const SizedBox(
+                height: 12,
+              ),
+              MainTextField.password(
+                onChanged: (val) => setState(() {
+                  password = val;
+                  isPasswordEmpty = password?.isEmpty ?? true;
+                }),
+              ),
+              const SizedBox(
+                height: 12,
+              ),
+              MainTextField.confirmPassword(
+                passwordValue: password,
+                onChanged: (val) => setState(() {
+                  confirmPassword = val;
+                  isConfirmPasswordEmpty = confirmPassword?.isEmpty ?? true;
+                }),
+              ),
+              const SizedBox(
+                height: 12,
+              ),
+              MainTextField.number(
+                onSaved: (val) => number = val,
+              ),
+              const SizedBox(
+                height: 12,
+              ),
               MainTextField.phone(
-                initialCountryCode: initialCountryCode,
-                textInputFormatter: [],
                 onChangedCountryCode: (value) {
                   countryCode = value.toString();
                 },
@@ -101,21 +99,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   backgroundColor: Theme.of(context).primaryColor,
                   foregroundColor: Colors.white,
                 ),
-                onPressed: () {
-                  if (formKey.currentState?.validate() ?? false) {
-                    log('number => ${countryCode ?? initialCountryCode}$phone');
-                  }
-                },
-                // onPressed: isAnyFieldEmpty
-                //     ? null
-                //     : () {
-                //         if (formKey.currentState?.validate() ?? false) {
-                //           log('email => $email');
-                //           log('password => $password');
-                //           log('confirmPassword => $confirmPassword');
-                //           log('number => $number');
-                //         }
-                //       },
+                onPressed: isAnyFieldEmpty
+                    ? null
+                    : () {
+                        if (formKey.currentState?.validate() ?? false) {
+                          log('phone => ${countryCode ?? initialCountryCode}$phone');
+                          log('email => $email');
+                          log('password => $password');
+                          log('confirmPassword => $confirmPassword');
+                          log('number => $number');
+                        }
+                      },
                 child: const Text(
                   'Send',
                   style: TextStyle(fontSize: 18),

@@ -562,7 +562,8 @@ class MainTextField extends StatefulWidget {
   factory MainTextField.phone({
     double width = 370,
     double radius = 12,
-    required String initialCountryCode,
+    String initialCountryCode = '+20',
+    List<String> favoriteCountryCode = const ['+20', '+966'],
     bool readOnly = false,
     bool isRequired = true,
     bool isDense = false,
@@ -610,6 +611,7 @@ class MainTextField extends StatefulWidget {
     return _PhoneMainTextField(
       countryCode: initialCountryCode,
       onChangedCountryCode: onChangedCountryCode,
+      favoriteCountryCode: favoriteCountryCode,
       width: width,
       title: title,
       titleStyle: titleStyle,
