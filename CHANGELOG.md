@@ -1,3 +1,10 @@
+## 0.0.4
+* add header to text field
+* add country code picker
+* add icons
+* finish phone number validation
+
+
 ## 0.0.3
 * add translation
 * make default value in hint text

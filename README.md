@@ -119,11 +119,16 @@ The `MainTextField` class offers multiple factory constructors to create specifi
 
 ### Email
 
+<details>
+<summary>Example Code </summary>
+
 ```dart
   MainTextField.email(
     onSaved: (val) => email = val,
   )
 ```
+</details>
+
 ### Password
 
 ```dart
