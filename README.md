@@ -3,13 +3,11 @@
 The `MainTextField` package is a customizable form field widget built for Flutter, offering various configurations to adapt to a wide range of use cases, such as inputting text, email, password, phone numbers, and more. It provides advanced functionality like validation, customizable appearance, and support for keyboard actions and user interactions.
 
 <p>
-
     <a href="https://github.com/abdelrahmanghanem/main_text_field"><img src="https://img.shields.io/github/stars/abdelrahmanghanem/main_text_field?style=social" alt="Repo stars"></a>
     <a href="https://github.com/abdelrahmanghanem/main_text_field/commits/main"><img src="https://img.shields.io/github/last-commit/abdelrahmanghanem/main_text_field/main?logo=git" alt="Last Commit"></a>
     <a href="https://github.com/abdelrahmanghanem/main_text_field/pulls"><img src="https://img.shields.io/github/issues-pr/abdelrahmanghanem/main_text_field" alt="Repo PRs"></a>
     <a href="https://github.com/abdelrahmanghanem/main_text_field/issues?q=is%3Aissue+is%3Aopen"><img src="https://img.shields.io/github/issues/abdelrahmanghanem/main_text_field" alt="Repo issues"></a>
     <a href="https://github.com/abdelrahmanghanem/main_text_field/blob/main/LICENSE"><img src="https://badgen.net/github/license/abdelrahmanghanem/main_text_field" alt="License"></a>
-
 </p>
 
 ## Table of Contents
