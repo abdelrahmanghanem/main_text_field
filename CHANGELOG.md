@@ -1,3 +1,5 @@
+## 0.0.6
+* update smart localize package
 ## 0.0.5
 * use smart localize package
 

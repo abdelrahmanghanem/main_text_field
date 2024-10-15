@@ -166,7 +166,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.0.4"
+    version: "0.0.5"
   matcher:
     dependency: transitive
     description:
@@ -224,10 +224,10 @@ packages:
     dependency: transitive
     description:
       name: smart_localize
-      sha256: "474ec32a9a08e715ad6a510b8f25c66c44302aaa74b866386e0538d521f55e4b"
+      sha256: ce756c94c78fb7762df86fe4f799eaa0f21a1b91e4c78b7efd4b2bf449ecc129
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.6"
+    version: "0.0.7"
   source_span:
     dependency: transitive
     description:
