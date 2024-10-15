@@ -68,9 +68,7 @@ class _PhoneMainTextFieldState extends State<_PhoneMainTextField> {
             children: [
               Expanded(
                 child: HeaderFieldWidget(
-                  title: widget.title ??
-                      ValidationMessage(key: 'phone_').localize(context) ??
-                      'Phone',
+                  title: widget.title ?? SmartLocalize.phone,
                   isRequired: widget.isRequired,
                   titleStyle: widget.titleStyle,
                 ),
@@ -162,10 +160,7 @@ class _PhoneMainTextFieldState extends State<_PhoneMainTextField> {
                     hintText: widget.hideHintText
                         ? null
                         : widget.hintText ??
-                            ValidationMessage(
-                                    key: 'please_enter_your_phone_number')
-                                .localize(context) ??
-                            'Please enter your phone number',
+                            SmartLocalizePlaceholder.enterPhone,
                     hintStyle: widget.hintStyle,
                     decorationType: widget.decorationType,
                     isRequired: widget.isRequired,

@@ -71,14 +71,12 @@ MainTextField(
 ```
 ## Localization
 
-To enable validation message localization in the Factory Constructors, add `ValidationLocalizations.delegate` to your app's list of delegates:
+To enable validation message localization in the Factory Constructors, add `context.smartLocalizeDelegates` to your app's list of delegates:
 
 ```dart
   MaterialApp(
     localizationsDelegates: [
-      ValidationLocalizations.delegate,
-   
-      // other delegates...
+       context.smartLocalizeDelegates,
     ],
     // other app configurations...
   )
@@ -148,7 +146,7 @@ The `MainTextField` class offers multiple factory constructors to create specifi
 
 ```dart
   MainTextField.confirmPassword(
-    passwordValue: "password_value",
+    passwordValue: "< password_value >",
     onSaved: (val) => confirmPassword = val,
   )
 ```

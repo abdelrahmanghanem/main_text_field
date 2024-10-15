@@ -63,9 +63,7 @@ class _PasswordMainTextFieldState extends State<_PasswordMainTextField> {
             children: [
               Expanded(
                 child: HeaderFieldWidget(
-                  title: widget.title ??
-                      ValidationMessage(key: 'password_').localize(context) ??
-                      'Password',
+                  title: widget.title ?? SmartLocalize.password,
                   isRequired: widget.isRequired,
                   titleStyle: widget.titleStyle,
                 ),
@@ -159,9 +157,7 @@ class _PasswordMainTextFieldState extends State<_PasswordMainTextField> {
                   hintText: widget.hideHintText
                       ? null
                       : widget.hintText ??
-                          ValidationMessage(key: 'please_enter_password')
-                              .localize(context) ??
-                          'Please enter password',
+                          SmartLocalizePlaceholder.enterPassword,
                   hintStyle: widget.hintStyle,
                   decorationType: widget.decorationType,
                   isRequired: widget.isRequired,

@@ -62,9 +62,7 @@ class _NumberMainTextFieldState extends State<_NumberMainTextField> {
             children: [
               Expanded(
                 child: HeaderFieldWidget(
-                  title: widget.title ??
-                      ValidationMessage(key: 'number_').localize(context) ??
-                      'Number',
+                  title: widget.title ?? SmartLocalize.number,
                   isRequired: widget.isRequired,
                   titleStyle: widget.titleStyle,
                 ),
@@ -145,9 +143,7 @@ class _NumberMainTextFieldState extends State<_NumberMainTextField> {
                   hintText: widget.hideHintText
                       ? null
                       : widget.hintText ??
-                          ValidationMessage(key: 'please_enter_number')
-                              .localize(context) ??
-                          'please enter number',
+                          SmartLocalizePlaceholder.pleaseEnterNumber,
                   decorationType: widget.decorationType,
                   isRequired: widget.isRequired,
                   showAsterisk: widget.showAsterisk,

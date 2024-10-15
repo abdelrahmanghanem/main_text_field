@@ -67,10 +67,7 @@ class _ConfirmPasswordMainTextFieldState
             children: [
               Expanded(
                 child: HeaderFieldWidget(
-                  title: widget.title ??
-                      ValidationMessage(key: 'confirm_password')
-                          .localize(context) ??
-                      'Confirm Password',
+                  title: widget.title ?? SmartLocalize.confirmPassword,
                   isRequired: widget.isRequired,
                   titleStyle: widget.titleStyle,
                 ),
@@ -166,9 +163,7 @@ class _ConfirmPasswordMainTextFieldState
                   hintText: widget.hideHintText
                       ? null
                       : widget.hintText ??
-                          ValidationMessage(key: 'please_confirm_password')
-                              .localize(context) ??
-                          'Please confirm password',
+                          SmartLocalizePlaceholder.pleaseConfirmPassword,
                   hintStyle: widget.hintStyle,
                   decorationType: widget.decorationType,
                   isRequired: widget.isRequired,

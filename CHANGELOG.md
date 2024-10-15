@@ -1,3 +1,6 @@
+## 0.0.5
+* use smart localize package
+
 ## 0.0.4
 * add header to text field
 * add country code picker

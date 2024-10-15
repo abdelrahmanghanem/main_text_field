@@ -33,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home'),
+        title: Text(SmartLocalize.home),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -43,9 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               MainTextField(
-                title: 'MainTextField',
                 contentPadding: const EdgeInsets.symmetric(horizontal: 12),
-                initialValue: 'welcome',
                 isRequired: false,
                 onSaved: (val) => textField1 = val,
               ),
@@ -110,9 +108,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           log('number => $number');
                         }
                       },
-                child: const Text(
-                  'Send',
-                  style: TextStyle(fontSize: 18),
+                child: Text(
+                  SmartLocalize.send,
+                  style: const TextStyle(fontSize: 18),
                 ),
               )
             ],

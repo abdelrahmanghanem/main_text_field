@@ -166,7 +166,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.0.3"
+    version: "0.0.4"
   matcher:
     dependency: transitive
     description:
@@ -220,6 +220,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
+  smart_localize:
+    dependency: transitive
+    description:
+      name: smart_localize
+      sha256: "474ec32a9a08e715ad6a510b8f25c66c44302aaa74b866386e0538d521f55e4b"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.6"
   source_span:
     dependency: transitive
     description:

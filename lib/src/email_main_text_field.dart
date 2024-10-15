@@ -67,9 +67,7 @@ class _EmailMainTextFieldState extends State<_EmailMainTextField> {
               if (!widget.hideTitle)
                 Expanded(
                   child: HeaderFieldWidget(
-                    title: widget.title ??
-                        ValidationMessage(key: 'email_').localize(context) ??
-                        'Email',
+                    title: widget.title ?? SmartLocalize.email,
                     isRequired: widget.isRequired,
                     titleStyle: widget.titleStyle,
                   ),
@@ -147,10 +145,7 @@ class _EmailMainTextFieldState extends State<_EmailMainTextField> {
                       widget.errorColor ?? Theme.of(context).colorScheme.error,
                   hintText: widget.hideHintText
                       ? null
-                      : widget.hintText ??
-                          ValidationMessage(key: 'please_enter_your_email')
-                              .localize(context) ??
-                          'Please enter your email',
+                      : widget.hintText ?? SmartLocalizePlaceholder.enterEmail,
                   hintStyle: widget.hintStyle,
                   decorationType: widget.decorationType,
                   isRequired: widget.isRequired,
