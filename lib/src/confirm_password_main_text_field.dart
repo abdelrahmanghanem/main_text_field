@@ -103,7 +103,6 @@ class _ConfirmPasswordMainTextFieldState
                 (val) => validateConfirmPasswordFormat(
                       password: val,
                       confirmPassword: widget.passwordValue,
-                      context: context,
                     ),
             // List of input formatters to format the text input.
             inputFormatters: [

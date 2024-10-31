@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:smart_localize/smart_localize.dart';
 
 /// Validates the format of an email address.
@@ -10,7 +9,7 @@ import 'package:smart_localize/smart_localize.dart';
 ///   - [context]: The current BuildContext for localization.
 ///
 /// - Returns: A localized error message if the email is invalid, or null if valid.
-String? validateEmailFormat(String? value, BuildContext context) {
+String? validateEmailFormat(String? value) {
   String trimmedValue = value?.trim() ?? '';
 
   if (trimmedValue.isEmpty) {
@@ -40,7 +39,7 @@ String? validateEmailFormat(String? value, BuildContext context) {
 ///   - [context]: The current BuildContext for localization.
 ///
 /// - Returns: A localized error message if the phone number is invalid, or null if valid.
-String? validatePhoneFormat(String? value, BuildContext context) {
+String? validatePhoneFormat(String? value) {
   const phoneRegex = r"^\+?[0-9]{10,12}$";
   String trimmedValue = value?.trim() ?? '';
 
@@ -64,7 +63,7 @@ String? validatePhoneFormat(String? value, BuildContext context) {
 ///   - [context]: The current BuildContext for localization.
 ///
 /// - Returns: A localized error message if the input is empty or zero, or null if valid.
-String? validateNonEmptyFormat(String? value, BuildContext context) {
+String? validateNonEmptyFormat(String? value) {
   String trimmedValue = value?.trim() ?? '';
 
   if (trimmedValue.isEmpty || int.tryParse(trimmedValue) == 0) {
@@ -81,7 +80,7 @@ String? validateNonEmptyFormat(String? value, BuildContext context) {
 ///   - [context]: The current BuildContext for localization.
 ///
 /// - Returns: A localized error message if the input is not a valid number, or null if valid.
-String? validateNumberFormat(String? value, BuildContext context) {
+String? validateNumberFormat(String? value) {
   String trimmedValue = value?.trim() ?? '';
 
   if (trimmedValue.isEmpty) {
@@ -116,7 +115,7 @@ String? validateNumberFormat(String? value, BuildContext context) {
 //
 //   return null;
 // }
-String? validatePasswordFormat(String? value, BuildContext context) {
+String? validatePasswordFormat(String? value) {
   String trimmedValue = value?.trim() ?? '';
 
   // List to hold all validation errors
@@ -179,7 +178,6 @@ String? validatePasswordFormat(String? value, BuildContext context) {
 String? validateConfirmPasswordFormat({
   required String? confirmPassword,
   required String? password,
-  required BuildContext context,
 }) {
   String trimmedConfirmPassword = confirmPassword?.trim() ?? '';
   String trimmedPassword = password?.trim() ?? '';
@@ -202,7 +200,7 @@ String? validateConfirmPasswordFormat({
 ///   - [context]: The current BuildContext for localization.
 ///
 /// - Returns: A localized error message if the description is invalid, or null if valid.
-String? validateDescription(String? value, BuildContext context) {
+String? validateDescription(String? value) {
   String trimmedValue = value?.trim() ?? '';
 
   if (trimmedValue.isEmpty) {
@@ -226,7 +224,7 @@ String? validateDescription(String? value, BuildContext context) {
 ///   - [context]: The current BuildContext for localization.
 ///
 /// - Returns: A localized error message if the input is invalid, or null if valid.
-String? validateArabic(String? value, BuildContext context) {
+String? validateArabic(String? value) {
   if (value == null || value.trim().isEmpty) {
     return SmartLocalizeValidation.cannotBeEmpty;
   }
@@ -250,7 +248,7 @@ String? validateArabic(String? value, BuildContext context) {
 ///   - [context]: The current BuildContext for localization.
 ///
 /// - Returns: A localized error message if the input is invalid, or null if valid.
-String? validateEnglish(String? value, BuildContext context) {
+String? validateEnglish(String? value) {
   if (value == null || value.trim().isEmpty) {
     return SmartLocalizeValidation.cannotBeEmpty;
   }
@@ -264,7 +262,7 @@ String? validateEnglish(String? value, BuildContext context) {
   return null;
 }
 
-String? validateTimeFormat(String? value, BuildContext context) {
+String? validateTimeFormat(String? value) {
   // Trim the input to avoid unnecessary spaces
   String trimmedValue = value?.trim() ?? '';
 
@@ -282,7 +280,7 @@ String? validateTimeFormat(String? value, BuildContext context) {
   return null;
 }
 
-String? priceValidation(String? value, BuildContext context) {
+String? priceValidation(String? value) {
   // Trim the input once
   String trimmedValue = value?.trim() ?? '';
 

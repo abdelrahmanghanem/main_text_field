@@ -101,8 +101,7 @@ class _PhoneMainTextFieldState extends State<_PhoneMainTextField> {
               onSaved: widget.onSaved,
 
               // Validator function to validate the text input. Applied only if `isRequired` is true.
-              validator: widget.validator ??
-                  (val) => validatePhoneFormat(val, context),
+              validator: widget.validator ?? (val) => validatePhoneFormat(val),
               // List of input formatters to format the text input.
               inputFormatters: [
                 FilteringTextInputFormatter.digitsOnly,

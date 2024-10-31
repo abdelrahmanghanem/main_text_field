@@ -95,8 +95,7 @@ class _PasswordMainTextFieldState extends State<_PasswordMainTextField> {
             onSaved: widget.onSaved,
 
             // Validator function to validate the text input. Applied only if `isRequired` is true.
-            validator: widget.validator ??
-                (val) => validatePasswordFormat(val, context),
+            validator: widget.validator ?? (val) => validatePasswordFormat(val),
             // List of input formatters to format the text input.
             inputFormatters: [
               FilteringTextInputFormatter.deny(RegExp(r'\s')),

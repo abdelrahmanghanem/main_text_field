@@ -1,3 +1,5 @@
+## 0.0.7
+* remove context from validation
 ## 0.0.6
 * update smart localize package
 ## 0.0.5
