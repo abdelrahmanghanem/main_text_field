@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:main_text_field/main_text_field.dart';
+import 'package:smart_localize/smart_localize.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -48,14 +49,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 onSaved: (val) => textField1 = val,
               ),
               MainTextField.email(
+                titlePadding: 12,
                 onChanged: (val) => setState(() {
                   email = val;
                   isEmailEmpty = email?.isEmpty ?? true;
                 }),
               ),
-              const SizedBox(
-                height: 12,
-              ),
+              const SizedBox(height: 12),
               MainTextField.password(
                 onChanged: (val) => setState(() {
                   password = val;

@@ -8,6 +8,7 @@ class _ConfirmPasswordMainTextField extends MainTextField {
     required super.title,
     required super.onTap,
     required super.titleStyle,
+    required super.titlePadding,
     required super.hideHintText,
     required super.textInputFormatter,
     required super.readOnly,
@@ -42,7 +43,9 @@ class _ConfirmPasswordMainTextField extends MainTextField {
     required super.hintStyle,
     required super.isDense,
     required super.isEnable,
+    required super.hideAsterisk,
     super.radius,
+    required super.showPrefixIcon,
   });
 
   @override
@@ -70,10 +73,14 @@ class _ConfirmPasswordMainTextFieldState
                   title: widget.title ?? SmartLocalize.confirmPassword,
                   isRequired: widget.isRequired,
                   titleStyle: widget.titleStyle,
+                  hideAsterisk: widget.hideAsterisk,
                 ),
               ),
               // button ?? const SizedBox.shrink()
             ],
+          ),
+          SizedBox(
+            height: widget.titlePadding,
           ),
           TextFormField(
             // Callback triggered when the form field is tapped.
@@ -138,10 +145,14 @@ class _ConfirmPasswordMainTextFieldState
                   filled: widget.filled,
                   fillColor: widget.fillColor,
                   prefixIcon: widget.prefixIcon ??
-                      const Padding(
-                        padding: EdgeInsets.all(10),
-                        child: PrefixIconWidget(assetPath: AppImages.lock),
-                      ),
+                      (widget.showPrefixIcon
+                          ? const Padding(
+                              padding: EdgeInsets.all(10),
+                              child: PrefixIconWidget(
+                                assetPath: AppImages.lock,
+                              ),
+                            )
+                          : null),
                   suffixIcon: widget.suffixIcon ??
                       IconButton(
                         onPressed: () => setState(() {

@@ -11,6 +11,7 @@ class _PhoneMainTextField extends MainTextField {
     required super.width,
     required super.title,
     required super.titleStyle,
+    required super.titlePadding,
     required super.onTap,
     required super.hideHintText,
     required super.textInputFormatter,
@@ -46,7 +47,9 @@ class _PhoneMainTextField extends MainTextField {
     required super.hintStyle,
     required super.isDense,
     required super.isEnable,
+    required super.hideAsterisk,
     super.radius,
+    required super.showPrefixIcon,
   });
 
   @override
@@ -70,12 +73,14 @@ class _PhoneMainTextFieldState extends State<_PhoneMainTextField> {
                 child: HeaderFieldWidget(
                   title: widget.title ?? SmartLocalize.phone,
                   isRequired: widget.isRequired,
+                  hideAsterisk: widget.hideAsterisk,
                   titleStyle: widget.titleStyle,
                 ),
               ),
               // button ?? const SizedBox.shrink()
             ],
           ),
+          SizedBox(height: widget.titlePadding),
           Directionality(
             textDirection: TextDirection.ltr,
             child: TextFormField(

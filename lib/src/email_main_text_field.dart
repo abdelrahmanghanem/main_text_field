@@ -7,6 +7,7 @@ class _EmailMainTextField extends MainTextField {
     required super.width,
     required super.title,
     required super.titleStyle,
+    required super.titlePadding,
     required super.onTap,
     required super.hideHintText,
     required super.textInputFormatter,
@@ -45,6 +46,8 @@ class _EmailMainTextField extends MainTextField {
     required super.showAsterisk,
     required super.isDense,
     required super.isEnable,
+    required super.hideAsterisk,
+    required super.showPrefixIcon,
   });
 
   @override
@@ -69,11 +72,15 @@ class _EmailMainTextFieldState extends State<_EmailMainTextField> {
                   child: HeaderFieldWidget(
                     title: widget.title ?? SmartLocalize.email,
                     isRequired: widget.isRequired,
+                    hideAsterisk: widget.hideAsterisk,
                     titleStyle: widget.titleStyle,
                   ),
                 ),
               // button ?? const SizedBox.shrink()
             ],
+          ),
+          SizedBox(
+            height: widget.titlePadding,
           ),
           TextFormField(
             // Callback triggered when the form field is tapped.
@@ -130,10 +137,14 @@ class _EmailMainTextFieldState extends State<_EmailMainTextField> {
                   filled: widget.filled,
                   fillColor: widget.fillColor,
                   prefixIcon: widget.prefixIcon ??
-                      const Padding(
-                        padding: EdgeInsets.all(10),
-                        child: PrefixIconWidget(assetPath: AppImages.sms),
-                      ),
+                      (widget.showPrefixIcon
+                          ? const Padding(
+                              padding: EdgeInsets.all(10),
+                              child: PrefixIconWidget(
+                                assetPath: AppImages.sms,
+                              ),
+                            )
+                          : null),
                   suffixIcon: widget.suffixIcon,
                   contentPadding: widget.contentPadding,
                   prefixIconConstraints: widget.prefixIconConstraints,

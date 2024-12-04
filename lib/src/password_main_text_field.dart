@@ -5,6 +5,7 @@ class _PasswordMainTextField extends MainTextField {
     required super.width,
     required super.title,
     required super.titleStyle,
+    required super.titlePadding,
     required super.onTap,
     required super.hideHintText,
     required super.textInputFormatter,
@@ -40,7 +41,9 @@ class _PasswordMainTextField extends MainTextField {
     required super.hintStyle,
     required super.isDense,
     required super.isEnable,
+    required super.hideAsterisk,
     super.radius,
+    required super.showPrefixIcon,
   });
 
   @override
@@ -65,12 +68,14 @@ class _PasswordMainTextFieldState extends State<_PasswordMainTextField> {
                 child: HeaderFieldWidget(
                   title: widget.title ?? SmartLocalize.password,
                   isRequired: widget.isRequired,
+                  hideAsterisk: widget.hideAsterisk,
                   titleStyle: widget.titleStyle,
                 ),
               ),
               // button ?? const SizedBox.shrink()
             ],
           ),
+          SizedBox(height: widget.titlePadding),
           TextFormField(
             // Callback triggered when the form field is tapped.
             onTap: widget.onTap,
@@ -130,12 +135,14 @@ class _PasswordMainTextFieldState extends State<_PasswordMainTextField> {
                   filled: widget.filled,
                   fillColor: widget.fillColor,
                   prefixIcon: widget.prefixIcon ??
-                      const Padding(
-                        padding: EdgeInsets.all(10.0),
-                        child: PrefixIconWidget(
-                          assetPath: AppImages.lock,
-                        ),
-                      ),
+                      (widget.showPrefixIcon
+                          ? const Padding(
+                              padding: EdgeInsets.all(10),
+                              child: PrefixIconWidget(
+                                assetPath: AppImages.lock,
+                              ),
+                            )
+                          : null),
                   suffixIcon: widget.suffixIcon ??
                       IconButton(
                         onPressed: () => setState(() {

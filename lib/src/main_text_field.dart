@@ -2,6 +2,7 @@ import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:main_text_field/src/strings.dart';
+import 'package:smart_localize/smart_localize.dart';
 
 import '../main_text_field.dart';
 import 'widgets/header_text_field_widget.dart';
@@ -57,6 +58,7 @@ class MainTextField extends StatefulWidget {
 
   /// The number of lines to display in the form field. Defaults to `1`.
   final int maxLines;
+  final double titlePadding;
 
   /// A flag that makes the form field read-only. Defaults to `false`.
   final bool readOnly;
@@ -94,6 +96,7 @@ class MainTextField extends StatefulWidget {
 
   /// A flag that marks the form field as required for validation purposes.
   final bool isRequired;
+  final bool hideAsterisk;
 
   /// A flag to determine whether the form field should be filled with a background color.
   final bool? filled;
@@ -109,6 +112,7 @@ class MainTextField extends StatefulWidget {
 
   /// A widget to display as a prefix icon inside the form field.
   final Widget? prefixIcon;
+  final bool showPrefixIcon;
 
   /// Constraints for the prefix icon (e.g., size).
   final BoxConstraints? prefixIconConstraints;
@@ -156,7 +160,11 @@ class MainTextField extends StatefulWidget {
     this.minLines = 1,
     this.keyboardType = TextInputType.text,
     this.maxLines = 1,
+    this.titlePadding = 4,
     this.readOnly = false,
+    this.showPrefixIcon = false,
+    this.prefixIcon,
+    this.prefixIconConstraints,
     this.textInputAction = TextInputAction.next,
     this.showAsterisk = false,
     this.isEnable = true,
@@ -180,14 +188,13 @@ class MainTextField extends StatefulWidget {
     this.textAlignVertical,
     this.textCapitalization,
     this.isRequired = true,
+    this.hideAsterisk = false,
     this.isDense = false,
     this.filled,
     this.fillColor,
     this.focusedBorder,
     this.contentPadding = const EdgeInsets.symmetric(horizontal: 8),
-    this.prefixIcon,
     this.enabledBorder,
-    this.prefixIconConstraints,
     this.suffixIconConstraints,
     this.hintText,
     this.hideHintText = false,
@@ -202,8 +209,10 @@ class MainTextField extends StatefulWidget {
   factory MainTextField.email({
     double width = 370,
     double radius = 12,
+    double titlePadding = 4,
     bool readOnly = false,
     bool isRequired = true,
+    bool hideAsterisk = false,
     bool isDense = false,
     bool isEnable = true,
     bool hideHintText = false,
@@ -230,6 +239,7 @@ class MainTextField extends StatefulWidget {
     bool? filled,
     Color? fillColor,
     InputBorder? focusedBorder,
+    bool showPrefixIcon = false,
     Widget? prefixIcon,
     BoxConstraints? prefixIconConstraints,
     BoxConstraints? suffixIconConstraints,
@@ -246,8 +256,10 @@ class MainTextField extends StatefulWidget {
   }) {
     return _EmailMainTextField(
       showAsterisk: false,
-      width: width,
+      width: width, titlePadding: titlePadding,
       title: title,
+      showPrefixIcon: showPrefixIcon,
+
       hideTitle: hideTitle,
       titleStyle: titleStyle,
       hideHintText: hideHintText,
@@ -264,6 +276,7 @@ class MainTextField extends StatefulWidget {
       style: style,
       autoValidateMode: autoValidateMode,
       isRequired: isRequired,
+      hideAsterisk: hideAsterisk,
       textInputAction: textInputAction,
       focusNode: focusNode,
       textCapitalization: textCapitalization,
@@ -292,11 +305,14 @@ class MainTextField extends StatefulWidget {
     /// The width of the form field. If `null`, it takes up the available space.
     double width = 370,
     double radius = 12,
+    double titlePadding = 4,
     bool readOnly = false,
     bool isRequired = true,
+    bool hideAsterisk = false,
     bool isDense = false,
     bool isEnable = true,
     bool hideHintText = false,
+    bool showPrefixIcon = false,
     DecorationType decorationType = DecorationType.outline,
     EdgeInsets contentPadding = const EdgeInsets.symmetric(horizontal: 8),
     TextAlign? textAlign,
@@ -339,8 +355,12 @@ class MainTextField extends StatefulWidget {
       width: width,
       title: title,
       titleStyle: titleStyle,
+      titlePadding: titlePadding,
       hideHintText: hideHintText,
       initialValue: initialValue,
+      readOnly: readOnly,
+      isEnable: isEnable,
+      showPrefixIcon: showPrefixIcon,
       onTap: onTap,
       onChanged: onChanged,
       onSubmit: onSubmit,
@@ -348,12 +368,12 @@ class MainTextField extends StatefulWidget {
       validator: validator,
       textAlign: textAlign,
       textInputFormatter: textInputFormatter,
-      readOnly: readOnly,
       radius: radius,
       controller: controller,
       style: style,
       autoValidateMode: autoValidateMode,
       isRequired: isRequired,
+      hideAsterisk: hideAsterisk,
       textInputAction: textInputAction,
       focusNode: focusNode,
       textCapitalization: textCapitalization,
@@ -375,7 +395,6 @@ class MainTextField extends StatefulWidget {
       hintText: hintText,
       hintStyle: hintStyle,
       isDense: isDense,
-      isEnable: isEnable,
     );
   }
   factory MainTextField.confirmPassword({
@@ -384,9 +403,12 @@ class MainTextField extends StatefulWidget {
     double radius = 12,
     bool readOnly = false,
     bool isRequired = true,
+    bool hideAsterisk = false,
     bool isDense = false,
     bool isEnable = true,
     bool hideHintText = false,
+    double titlePadding = 4,
+    bool showPrefixIcon = false,
     EdgeInsets contentPadding = const EdgeInsets.symmetric(horizontal: 8),
     DecorationType decorationType = DecorationType.outline,
     required String? passwordValue,
@@ -429,6 +451,8 @@ class MainTextField extends StatefulWidget {
     return _ConfirmPasswordMainTextField(
       width: width,
       title: title,
+      showPrefixIcon: showPrefixIcon,
+      titlePadding: titlePadding,
       titleStyle: titleStyle,
       hideHintText: hideHintText,
       passwordValue: passwordValue,
@@ -446,6 +470,7 @@ class MainTextField extends StatefulWidget {
       style: style,
       autoValidateMode: autoValidateMode,
       isRequired: isRequired,
+      hideAsterisk: hideAsterisk,
       textInputAction: textInputAction,
       focusNode: focusNode,
       textCapitalization: textCapitalization,
@@ -474,10 +499,13 @@ class MainTextField extends StatefulWidget {
     double width = 370,
     double radius = 12,
     bool readOnly = false,
+    double titlePadding = 4,
     bool isRequired = true,
+    bool hideAsterisk = false,
     bool isDense = false,
     bool isEnable = true,
     bool hideHintText = false,
+    bool showPrefixIcon = false,
     EdgeInsets? contentPadding = const EdgeInsets.symmetric(horizontal: 8),
     TextAlign? textAlign,
     String? title,
@@ -519,7 +547,9 @@ class MainTextField extends StatefulWidget {
     return _NumberMainTextField(
       width: width,
       title: title,
+      showPrefixIcon: showPrefixIcon,
       titleStyle: titleStyle,
+      titlePadding: titlePadding,
       initialValue: initialValue,
       onTap: onTap,
       onChanged: onChanged,
@@ -534,6 +564,7 @@ class MainTextField extends StatefulWidget {
       style: style,
       autoValidateMode: autoValidateMode,
       isRequired: isRequired,
+      hideAsterisk: hideAsterisk,
       textInputAction: textInputAction,
       focusNode: focusNode,
       textCapitalization: textCapitalization,
@@ -562,13 +593,16 @@ class MainTextField extends StatefulWidget {
   factory MainTextField.phone({
     double width = 370,
     double radius = 12,
+    double titlePadding = 4,
     String initialCountryCode = '+20',
     List<String> favoriteCountryCode = const ['+20', '+966'],
     bool readOnly = false,
     bool isRequired = true,
+    bool hideAsterisk = false,
     bool isDense = false,
     bool isEnable = true,
     bool hideHintText = false,
+    bool showPrefixIcon = false,
     EdgeInsets? contentPadding = const EdgeInsets.symmetric(horizontal: 8),
     void Function(CountryCode)? onChangedCountryCode,
     TextAlign? textAlign,
@@ -615,8 +649,10 @@ class MainTextField extends StatefulWidget {
       width: width,
       title: title,
       titleStyle: titleStyle,
+      titlePadding: titlePadding,
       initialValue: initialValue,
       onTap: onTap,
+      showPrefixIcon: showPrefixIcon,
       onChanged: onChanged,
       onSubmit: onSubmit,
       onSaved: onSaved,
@@ -629,6 +665,7 @@ class MainTextField extends StatefulWidget {
       style: style,
       autoValidateMode: autoValidateMode,
       isRequired: isRequired,
+      hideAsterisk: hideAsterisk,
       textInputAction: textInputAction,
       focusNode: focusNode,
       textCapitalization: textCapitalization,
@@ -679,12 +716,14 @@ class _MainTextFieldState extends State<MainTextField> {
                   child: HeaderFieldWidget(
                     title: '${widget.title}',
                     isRequired: widget.isRequired,
+                    hideAsterisk: widget.hideAsterisk,
                     titleStyle: widget.titleStyle,
                   ),
                 ),
                 // button ?? const SizedBox.shrink()
               ],
             ),
+          SizedBox(height: widget.titlePadding),
           TextFormField(
             // Limits the maximum number of characters that can be entered in the field.
             maxLength: widget.maxLength,

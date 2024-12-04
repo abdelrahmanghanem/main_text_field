@@ -21,7 +21,7 @@ String? validateEmailFormat(String? value) {
   }
 
   const emailRegex =
-      r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$";
+      r"^[a-zA-Z0-9.!#$%&'*+/=?^_{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})*$";
 
   if (!RegExp(emailRegex).hasMatch(trimmedValue)) {
     return SmartLocalizeValidation.invalidEmailWithExample;

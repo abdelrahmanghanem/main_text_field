@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:main_text_field/main_text_field.dart';
+import 'package:smart_localize/smart_localize.dart';
 
 import 'home_screen.dart';
 

@@ -5,6 +5,7 @@ class _NumberMainTextField extends MainTextField {
     required super.width,
     required super.title,
     required super.titleStyle,
+    required super.titlePadding,
     required super.onTap,
     required super.hideHintText,
     required super.textInputFormatter,
@@ -40,7 +41,9 @@ class _NumberMainTextField extends MainTextField {
     required super.hintStyle,
     required super.isDense,
     required super.isEnable,
+    required super.hideAsterisk,
     super.radius,
+    required super.showPrefixIcon,
   });
 
   @override
@@ -64,12 +67,14 @@ class _NumberMainTextFieldState extends State<_NumberMainTextField> {
                 child: HeaderFieldWidget(
                   title: widget.title ?? SmartLocalize.number,
                   isRequired: widget.isRequired,
+                  hideAsterisk: widget.hideAsterisk,
                   titleStyle: widget.titleStyle,
                 ),
               ),
               // button ?? const SizedBox.shrink()
             ],
           ),
+          SizedBox(height: widget.titlePadding),
           TextFormField(
             // Callback triggered when the form field is tapped.
             onTap: widget.onTap,
@@ -125,11 +130,14 @@ class _NumberMainTextFieldState extends State<_NumberMainTextField> {
                   filled: widget.filled,
                   fillColor: widget.fillColor,
                   prefixIcon: widget.prefixIcon ??
-                      const Padding(
-                        padding: EdgeInsets.all(10),
-                        child:
-                            PrefixIconWidget(assetPath: AppImages.calculator),
-                      ),
+                      (widget.showPrefixIcon
+                          ? const Padding(
+                              padding: EdgeInsets.all(10),
+                              child: PrefixIconWidget(
+                                assetPath: AppImages.calculator,
+                              ),
+                            )
+                          : null),
                   suffixIcon: widget.suffixIcon,
                   contentPadding: widget.contentPadding,
                   prefixIconConstraints: widget.prefixIconConstraints,
