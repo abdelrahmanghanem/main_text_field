@@ -1,4 +1,7 @@
-## 0.0.9
+## 0.0.10
+
+* edit boarder color
+* ## 0.0.9
 
 * fix validateEmailFormat
 

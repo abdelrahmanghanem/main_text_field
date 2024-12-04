@@ -72,19 +72,19 @@ InputDecoration getInputDecoration({
         filled: filled,
         isDense: isDense,
         enabledBorder: getOutlineInputBorder(
-          color: Theme.of(context).primaryColor,
+          color: border,
           radius: radius,
         ),
         focusedBorder: getOutlineInputBorder(
-          color: Theme.of(context).primaryColor,
+          color: border,
           radius: radius,
         ),
         disabledBorder: getOutlineInputBorder(
-          color: Theme.of(context).primaryColor,
+          color: border,
           radius: radius,
         ),
         border: getOutlineInputBorder(
-          color: Theme.of(context).primaryColor,
+          color: border,
           radius: radius,
         ),
         label: labelText != null
