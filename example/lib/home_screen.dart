@@ -12,11 +12,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
   final formKey = GlobalKey<FormState>();
   String? textField1;
   String? email;
@@ -35,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
   String? phone;
   String? countryCode;
   String initialCountryCode = '+20';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

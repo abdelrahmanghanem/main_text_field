@@ -2,11 +2,11 @@ import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:main_text_field/src/strings.dart';
+import 'package:main_text_field/src/widgets/prefix_icon_widget.dart';
 import 'package:smart_localize/smart_localize.dart';
 
 import '../main_text_field.dart';
 import 'widgets/header_text_field_widget.dart';
-import 'widgets/prefix_icon_widget.dart';
 
 part 'confirm_password_main_text_field.dart';
 part 'email_main_text_field.dart';
