@@ -14,7 +14,7 @@ dependencies:
   country_code_picker: ^3.1.0
   smart_localize: ^0.0.13
   flutter_svg: ^2.0.16
-  main_widgets: ^0.2.1
+  main_widgets: ^0.2.2
 
 dev_dependencies:
   flutter_test:
