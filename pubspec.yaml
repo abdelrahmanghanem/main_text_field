@@ -1,6 +1,6 @@
 name: main_text_field
 description: "A customizable Flutter form field widget for inputs like text, email, password, and phone, offering validation, appearance options, and keyboard interaction support."
-version: 0.0.10
+version: 0.0.11
 homepage: https://github.com/abdelrahmanghanem
 repository: https://github.com/abdelrahmanghanem/main_text_field
 environment:
@@ -11,9 +11,9 @@ dependencies:
 
   flutter:
     sdk: flutter
-  flutter_svg: ^2.0.10+1
-  country_code_picker: ^3.0.0
-  smart_localize: ^0.0.8
+  country_code_picker: ^3.1.0
+  smart_localize: ^0.0.13
+  main_widgets: ^0.2.1
 
 dev_dependencies:
   flutter_test:

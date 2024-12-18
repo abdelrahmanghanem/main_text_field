@@ -20,6 +20,9 @@ class MainTextField extends StatefulWidget {
   /// The width of the form field. If `null`, it takes up the available space.
   final double width;
 
+  /// control in maxWidth for ipad and default value is 370.
+  final double maxWidth;
+
   /// The radius of the corners of the field. Defaults to `12`.
   final double radius;
 
@@ -92,6 +95,7 @@ class MainTextField extends StatefulWidget {
 
   /// Controls how the text input should be capitalized (e.g., sentences, words).
   final TextCapitalization? textCapitalization;
+
   //   inputDecoration: InputDecoration
 
   /// A flag that marks the form field as required for validation purposes.
@@ -155,7 +159,8 @@ class MainTextField extends StatefulWidget {
 
   const MainTextField({
     super.key,
-    this.width = 370,
+    this.width = double.infinity,
+    this.maxWidth = 370,
     this.radius = 12,
     this.minLines = 1,
     this.keyboardType = TextInputType.text,
@@ -206,8 +211,12 @@ class MainTextField extends StatefulWidget {
     this.title,
     this.titleStyle,
   });
+
   factory MainTextField.email({
-    double width = 370,
+    double width = double.infinity,
+
+    /// control in maxWidth for ipad and default value is 370.
+    double maxWidth = 370,
     double radius = 12,
     double titlePadding = 4,
     bool readOnly = false,
@@ -256,10 +265,11 @@ class MainTextField extends StatefulWidget {
   }) {
     return _EmailMainTextField(
       showAsterisk: false,
-      width: width, titlePadding: titlePadding,
+      width: width,
+      maxWidth: maxWidth,
+      titlePadding: titlePadding,
       title: title,
       showPrefixIcon: showPrefixIcon,
-
       hideTitle: hideTitle,
       titleStyle: titleStyle,
       hideHintText: hideHintText,
@@ -301,9 +311,13 @@ class MainTextField extends StatefulWidget {
       isEnable: isEnable,
     );
   }
+
   factory MainTextField.password({
     /// The width of the form field. If `null`, it takes up the available space.
-    double width = 370,
+    double width = double.infinity,
+
+    /// control in maxWidth for ipad and default value is 370.
+    double maxWidth = 370,
     double radius = 12,
     double titlePadding = 4,
     bool readOnly = false,
@@ -353,6 +367,7 @@ class MainTextField extends StatefulWidget {
   }) {
     return _PasswordMainTextField(
       width: width,
+      maxWidth: maxWidth,
       title: title,
       titleStyle: titleStyle,
       titlePadding: titlePadding,
@@ -397,9 +412,13 @@ class MainTextField extends StatefulWidget {
       isDense: isDense,
     );
   }
+
   factory MainTextField.confirmPassword({
     /// The width of the form field. If `null`, it takes up the available space.
-    double width = 370,
+    double width = double.infinity,
+
+    /// control in maxWidth for ipad and default value is 370.
+    double maxWidth = 370,
     double radius = 12,
     bool readOnly = false,
     bool isRequired = true,
@@ -450,6 +469,7 @@ class MainTextField extends StatefulWidget {
   }) {
     return _ConfirmPasswordMainTextField(
       width: width,
+      maxWidth: maxWidth,
       title: title,
       showPrefixIcon: showPrefixIcon,
       titlePadding: titlePadding,
@@ -495,8 +515,12 @@ class MainTextField extends StatefulWidget {
       isEnable: isEnable,
     );
   }
+
   factory MainTextField.number({
-    double width = 370,
+    double width = double.infinity,
+
+    /// control in maxWidth for ipad and default value is 370.
+    double maxWidth = 370,
     double radius = 12,
     bool readOnly = false,
     double titlePadding = 4,
@@ -546,6 +570,7 @@ class MainTextField extends StatefulWidget {
   }) {
     return _NumberMainTextField(
       width: width,
+      maxWidth: maxWidth,
       title: title,
       showPrefixIcon: showPrefixIcon,
       titleStyle: titleStyle,
@@ -590,8 +615,12 @@ class MainTextField extends StatefulWidget {
       isEnable: isEnable,
     );
   }
+
   factory MainTextField.phone({
-    double width = 370,
+    double width = double.infinity,
+
+    /// control in maxWidth for ipad and default value is 370.
+    double maxWidth = 370,
     double radius = 12,
     double titlePadding = 4,
     String initialCountryCode = '+20',
@@ -647,6 +676,7 @@ class MainTextField extends StatefulWidget {
       onChangedCountryCode: onChangedCountryCode,
       favoriteCountryCode: favoriteCountryCode,
       width: width,
+      maxWidth: maxWidth,
       title: title,
       titleStyle: titleStyle,
       titlePadding: titlePadding,
@@ -703,8 +733,7 @@ class _MainTextFieldState extends State<MainTextField> {
     return ConstrainedBox(
       constraints: BoxConstraints(
         // Sets the maximum width of the TextFormField. Defaults to 370 if `maxWidth` is not provided.
-        maxWidth: widget.width,
-        // maxHeight: widget.height,
+        maxWidth: MainWidgetsUtil.isTablet ? widget.maxWidth : widget.width,
       ),
       child: Column(
         children: [

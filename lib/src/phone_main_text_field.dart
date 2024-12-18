@@ -9,6 +9,7 @@ class _PhoneMainTextField extends MainTextField {
     required this.countryCode,
     required this.favoriteCountryCode,
     required super.width,
+    required super.maxWidth,
     required super.title,
     required super.titleStyle,
     required super.titlePadding,
@@ -62,7 +63,7 @@ class _PhoneMainTextFieldState extends State<_PhoneMainTextField> {
     return ConstrainedBox(
       constraints: BoxConstraints(
         // Sets the maximum width of the TextFormField. Defaults to 370 if `maxWidth` is not provided.
-        maxWidth: widget.width,
+        maxWidth: MainWidgetsUtil.isTablet ? widget.maxWidth : widget.width,
       ),
       child: Column(
         children: [
@@ -140,7 +141,7 @@ class _PhoneMainTextFieldState extends State<_PhoneMainTextField> {
                     fillColor: widget.fillColor,
                     prefixIcon: widget.prefixIcon ??
                         CountryCodePicker(
-                          dialogSize: const Size(300, 500),
+                          dialogSize: Size(300.ww, 500.hh),
                           textStyle: Theme.of(context).textTheme.bodyMedium,
                           onChanged: widget.onChangedCountryCode,
                           padding: EdgeInsets.zero,

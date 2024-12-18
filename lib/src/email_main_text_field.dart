@@ -5,6 +5,7 @@ class _EmailMainTextField extends MainTextField {
   const _EmailMainTextField({
     required this.hideTitle,
     required super.width,
+    required super.maxWidth,
     required super.title,
     required super.titleStyle,
     required super.titlePadding,
@@ -60,7 +61,7 @@ class _EmailMainTextFieldState extends State<_EmailMainTextField> {
     return ConstrainedBox(
       constraints: BoxConstraints(
         // Sets the maximum width of the TextFormField. Defaults to 370 if `maxWidth` is not provided.
-        maxWidth: widget.width,
+        maxWidth: MainWidgetsUtil.isTablet ? widget.maxWidth : widget.width,
       ),
       child: Column(
         children: [

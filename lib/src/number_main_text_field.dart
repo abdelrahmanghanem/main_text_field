@@ -3,6 +3,7 @@ part of 'main_text_field.dart';
 class _NumberMainTextField extends MainTextField {
   const _NumberMainTextField({
     required super.width,
+    required super.maxWidth,
     required super.title,
     required super.titleStyle,
     required super.titlePadding,
@@ -56,7 +57,7 @@ class _NumberMainTextFieldState extends State<_NumberMainTextField> {
     return ConstrainedBox(
       constraints: BoxConstraints(
         // Sets the maximum width of the TextFormField. Defaults to 370 if `maxWidth` is not provided.
-        maxWidth: widget.width,
+        maxWidth: MainWidgetsUtil.isTablet ? widget.maxWidth : widget.width,
       ),
       child: Column(
         children: [

@@ -5,6 +5,7 @@ class _ConfirmPasswordMainTextField extends MainTextField {
   const _ConfirmPasswordMainTextField({
     required this.passwordValue,
     required super.width,
+    required super.maxWidth,
     required super.title,
     required super.onTap,
     required super.titleStyle,
@@ -60,8 +61,7 @@ class _ConfirmPasswordMainTextFieldState
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: BoxConstraints(
-        // Sets the maximum width of the TextFormField. Defaults to 370 if `maxWidth` is not provided.
-        maxWidth: widget.width,
+        maxWidth: MainWidgetsUtil.isTablet ? widget.maxWidth : widget.width,
       ),
       child: Column(
         children: [

@@ -3,6 +3,7 @@ part of 'main_text_field.dart';
 class _PasswordMainTextField extends MainTextField {
   const _PasswordMainTextField({
     required super.width,
+    required super.maxWidth,
     required super.title,
     required super.titleStyle,
     required super.titlePadding,
@@ -57,7 +58,7 @@ class _PasswordMainTextFieldState extends State<_PasswordMainTextField> {
     return ConstrainedBox(
       constraints: BoxConstraints(
         // Sets the maximum width of the TextFormField. Defaults to 370 if `maxWidth` is not provided.
-        maxWidth: widget.width,
+        maxWidth: MainWidgetsUtil.isTablet ? widget.maxWidth : widget.width,
       ),
       child: Column(
         children: [

@@ -12,6 +12,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   final formKey = GlobalKey<FormState>();
   String? textField1;
   String? email;
@@ -41,47 +46,43 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Form(
           key: formKey,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            spacing: 12,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               MainTextField(
+                maxWidth: 500,
                 contentPadding: const EdgeInsets.symmetric(horizontal: 12),
                 isRequired: false,
                 onSaved: (val) => textField1 = val,
               ),
               MainTextField.email(
+                maxWidth: 500,
                 titlePadding: 12,
                 onChanged: (val) => setState(() {
                   email = val;
                   isEmailEmpty = email?.isEmpty ?? true;
                 }),
               ),
-              const SizedBox(height: 12),
               MainTextField.password(
                 onChanged: (val) => setState(() {
                   password = val;
                   isPasswordEmpty = password?.isEmpty ?? true;
                 }),
               ),
-              const SizedBox(
-                height: 12,
-              ),
               MainTextField.confirmPassword(
+                maxWidth: 500,
                 passwordValue: password,
                 onChanged: (val) => setState(() {
                   confirmPassword = val;
                   isConfirmPasswordEmpty = confirmPassword?.isEmpty ?? true;
                 }),
               ),
-              const SizedBox(
-                height: 12,
-              ),
               MainTextField.number(
+                maxWidth: 500,
                 onSaved: (val) => number = val,
               ),
-              const SizedBox(
-                height: 12,
-              ),
               MainTextField.phone(
+                maxWidth: 500,
                 onChangedCountryCode: (value) {
                   countryCode = value.toString();
                 },
@@ -109,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         }
                       },
                 child: Text(
-                  SmartLocalize.send,
+                  SmartLocalize.submit,
                   style: const TextStyle(fontSize: 18),
                 ),
               )
