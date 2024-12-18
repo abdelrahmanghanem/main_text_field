@@ -60,6 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 }),
               ),
               MainTextField.password(
+                maxWidth: 500,
                 onChanged: (val) => setState(() {
                   password = val;
                   isPasswordEmpty = password?.isEmpty ?? true;
