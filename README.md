@@ -47,6 +47,28 @@ dependencies:
   main_text_field: <latest_version>
 ```
 
+2. to handle responsive
+
+```dart
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    // this very important
+    MainWidgetsUtil.init(
+      context,
+      designSize: const Size(375, 812),
+      minTextAdapt: true,
+    );
+    return MaterialApp(
+      localizationsDelegates: context.smartLocalizeDelegates,
+      home: const HomeScreen(),
+    );
+  }
+}
+```
+
 
 ## Usage
 
@@ -69,6 +91,7 @@ MainTextField(
   },
 )
 ```
+
 ## Localization
 
 To enable validation message localization in the Factory Constructors, add `context.smartLocalizeDelegates` to your app's list of delegates:

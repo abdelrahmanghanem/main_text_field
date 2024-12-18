@@ -8,25 +8,13 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  @override
-  void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      MainWidgetsUtil.init(context, designSize: const Size(375, 812));
-    });
-    // TODO: implement initState
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    MainWidgetsUtil.init(context,
+        designSize: const Size(375, 812), minTextAdapt: true);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       supportedLocales: const [

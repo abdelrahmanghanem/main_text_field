@@ -1,3 +1,7 @@
+## 0.0.12
+
+* handle README.md
+
 ## 0.0.11
 
 * handle responsive
