@@ -156,6 +156,7 @@ class MainTextField extends StatefulWidget {
   final bool showAsterisk;
 
   final DecorationType decorationType;
+  final double? cursorHeight;
 
   const MainTextField({
     super.key,
@@ -173,6 +174,7 @@ class MainTextField extends StatefulWidget {
     this.textInputAction = TextInputAction.next,
     this.showAsterisk = false,
     this.isEnable = true,
+    this.cursorHeight,
     this.decorationType = DecorationType.outline,
     this.textInputFormatter,
     this.labelColor,
@@ -198,7 +200,7 @@ class MainTextField extends StatefulWidget {
     this.filled,
     this.fillColor,
     this.focusedBorder,
-    this.contentPadding = const EdgeInsets.symmetric(horizontal: 8),
+    this.contentPadding,
     this.enabledBorder,
     this.suffixIconConstraints,
     this.hintText,
@@ -225,8 +227,9 @@ class MainTextField extends StatefulWidget {
     bool isDense = false,
     bool isEnable = true,
     bool hideHintText = false,
+    double? cursorHeight,
     DecorationType decorationType = DecorationType.outline,
-    EdgeInsets contentPadding = const EdgeInsets.symmetric(horizontal: 8),
+    EdgeInsets? contentPadding,
     TextAlign? textAlign,
     TextDirection? hintTextDirection,
     String? initialValue,
@@ -309,6 +312,7 @@ class MainTextField extends StatefulWidget {
       hintStyle: hintStyle,
       isDense: isDense,
       isEnable: isEnable,
+      cursorHeight: cursorHeight,
     );
   }
 
@@ -327,8 +331,9 @@ class MainTextField extends StatefulWidget {
     bool isEnable = true,
     bool hideHintText = false,
     bool showPrefixIcon = false,
+    double? cursorHeight,
     DecorationType decorationType = DecorationType.outline,
-    EdgeInsets contentPadding = const EdgeInsets.symmetric(horizontal: 8),
+    EdgeInsets? contentPadding,
     TextAlign? textAlign,
     String? title,
     TextStyle? titleStyle,
@@ -410,6 +415,7 @@ class MainTextField extends StatefulWidget {
       hintText: hintText,
       hintStyle: hintStyle,
       isDense: isDense,
+      cursorHeight: cursorHeight,
     );
   }
 
@@ -428,7 +434,8 @@ class MainTextField extends StatefulWidget {
     bool hideHintText = false,
     double titlePadding = 4,
     bool showPrefixIcon = false,
-    EdgeInsets contentPadding = const EdgeInsets.symmetric(horizontal: 8),
+    double? cursorHeight,
+    EdgeInsets? contentPadding,
     DecorationType decorationType = DecorationType.outline,
     required String? passwordValue,
     TextAlign? textAlign,
@@ -513,6 +520,7 @@ class MainTextField extends StatefulWidget {
       hintStyle: hintStyle,
       isDense: isDense,
       isEnable: isEnable,
+      cursorHeight: cursorHeight,
     );
   }
 
@@ -530,7 +538,8 @@ class MainTextField extends StatefulWidget {
     bool isEnable = true,
     bool hideHintText = false,
     bool showPrefixIcon = false,
-    EdgeInsets? contentPadding = const EdgeInsets.symmetric(horizontal: 8),
+    double? cursorHeight,
+    EdgeInsets? contentPadding,
     TextAlign? textAlign,
     String? title,
     TextStyle? titleStyle,
@@ -613,6 +622,7 @@ class MainTextField extends StatefulWidget {
       hintStyle: hintStyle,
       isDense: isDense,
       isEnable: isEnable,
+      cursorHeight: cursorHeight,
     );
   }
 
@@ -625,6 +635,7 @@ class MainTextField extends StatefulWidget {
     double titlePadding = 4,
     String initialCountryCode = '+20',
     List<String> favoriteCountryCode = const ['+20', '+966'],
+    double? cursorHeight,
     bool readOnly = false,
     bool isRequired = true,
     bool hideAsterisk = false,
@@ -632,7 +643,7 @@ class MainTextField extends StatefulWidget {
     bool isEnable = true,
     bool hideHintText = false,
     bool showPrefixIcon = false,
-    EdgeInsets? contentPadding = const EdgeInsets.symmetric(horizontal: 8),
+    EdgeInsets? contentPadding,
     void Function(CountryCode)? onChangedCountryCode,
     TextAlign? textAlign,
     String? title,
@@ -719,6 +730,7 @@ class MainTextField extends StatefulWidget {
       hintStyle: hintStyle,
       isDense: isDense,
       isEnable: isEnable,
+      cursorHeight: cursorHeight,
     );
   }
 
@@ -813,7 +825,11 @@ class _MainTextFieldState extends State<MainTextField> {
                   fillColor: widget.fillColor,
                   prefixIcon: widget.prefixIcon,
                   suffixIcon: widget.suffixIcon,
-                  contentPadding: widget.contentPadding,
+                  contentPadding: widget.contentPadding ??
+                      (MainWidgetsUtil.isTablet
+                          ? const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 22)
+                          : const EdgeInsets.symmetric(horizontal: 8)),
                   prefixIconConstraints: widget.prefixIconConstraints,
                   suffixIconConstraints: widget.suffixIconConstraints,
                   labelText: widget.labelText,
@@ -830,7 +846,8 @@ class _MainTextFieldState extends State<MainTextField> {
                   radius: widget.radius,
                 ),
 
-            cursorHeight: 18,
+            cursorHeight:
+                widget.cursorHeight ?? (MainWidgetsUtil.isTablet ? 28.0 : 18.0),
           ),
         ],
       ),

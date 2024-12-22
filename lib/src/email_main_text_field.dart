@@ -49,6 +49,7 @@ class _EmailMainTextField extends MainTextField {
     required super.isEnable,
     required super.hideAsterisk,
     required super.showPrefixIcon,
+    required super.cursorHeight,
   });
 
   @override
@@ -147,7 +148,11 @@ class _EmailMainTextFieldState extends State<_EmailMainTextField> {
                             )
                           : null),
                   suffixIcon: widget.suffixIcon,
-                  contentPadding: widget.contentPadding,
+                  contentPadding: widget.contentPadding ??
+                      (MainWidgetsUtil.isTablet
+                          ? const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 22)
+                          : const EdgeInsets.symmetric(horizontal: 8)),
                   prefixIconConstraints: widget.prefixIconConstraints,
                   suffixIconConstraints: widget.suffixIconConstraints,
                   labelText: widget.labelText,
@@ -166,7 +171,8 @@ class _EmailMainTextFieldState extends State<_EmailMainTextField> {
                   radius: widget.radius,
                 ),
 
-            cursorHeight: 18,
+            cursorHeight:
+                widget.cursorHeight ?? (MainWidgetsUtil.isTablet ? 28.0 : 18.0),
           ),
         ],
       ),

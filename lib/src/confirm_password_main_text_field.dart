@@ -47,6 +47,7 @@ class _ConfirmPasswordMainTextField extends MainTextField {
     required super.hideAsterisk,
     super.radius,
     required super.showPrefixIcon,
+    required super.cursorHeight,
   });
 
   @override
@@ -163,7 +164,11 @@ class _ConfirmPasswordMainTextFieldState
                               showPassword ? AppImages.eyeSlash : AppImages.eye,
                         ),
                       ),
-                  contentPadding: widget.contentPadding,
+                  contentPadding: widget.contentPadding ??
+                      (MainWidgetsUtil.isTablet
+                          ? const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 22)
+                          : const EdgeInsets.symmetric(horizontal: 8)),
                   prefixIconConstraints: widget.prefixIconConstraints,
                   suffixIconConstraints: widget.suffixIconConstraints,
                   labelText: widget.labelText,
@@ -183,7 +188,8 @@ class _ConfirmPasswordMainTextFieldState
                   radius: widget.radius,
                 ),
 
-            cursorHeight: 18,
+            cursorHeight:
+                widget.cursorHeight ?? (MainWidgetsUtil.isTablet ? 28.0 : 18.0),
           ),
         ],
       ),

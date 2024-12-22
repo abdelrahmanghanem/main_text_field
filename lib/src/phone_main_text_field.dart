@@ -51,6 +51,7 @@ class _PhoneMainTextField extends MainTextField {
     required super.hideAsterisk,
     super.radius,
     required super.showPrefixIcon,
+    required super.cursorHeight,
   });
 
   @override
@@ -155,7 +156,11 @@ class _PhoneMainTextFieldState extends State<_PhoneMainTextField> {
                           ),
                         ),
                     suffixIcon: widget.suffixIcon,
-                    contentPadding: widget.contentPadding,
+                    contentPadding: widget.contentPadding ??
+                        (MainWidgetsUtil.isTablet
+                            ? const EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 22)
+                            : const EdgeInsets.symmetric(horizontal: 8)),
                     prefixIconConstraints: widget.prefixIconConstraints,
                     suffixIconConstraints: widget.suffixIconConstraints,
                     labelText: widget.labelText,
@@ -175,7 +180,8 @@ class _PhoneMainTextFieldState extends State<_PhoneMainTextField> {
                     radius: widget.radius,
                   ),
 
-              cursorHeight: 18,
+              cursorHeight: widget.cursorHeight ??
+                  (MainWidgetsUtil.isTablet ? 28.0 : 18.0),
             ),
           ),
         ],

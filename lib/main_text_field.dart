@@ -1,4 +1,4 @@
-library main_text_field;
+library;
 
 export 'package:main_widgets/main_widgets.dart';
 

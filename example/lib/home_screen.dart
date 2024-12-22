@@ -47,9 +47,11 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               MainTextField(
                 maxWidth: 500,
-                contentPadding: const EdgeInsets.symmetric(horizontal: 12),
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 30),
                 isRequired: false,
                 onSaved: (val) => textField1 = val,
+                cursorHeight: 40,
               ),
               MainTextField.email(
                 maxWidth: 500,
