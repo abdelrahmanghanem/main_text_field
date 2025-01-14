@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:main_text_field/main_text_field.dart';
+import 'package:main_widgets/main_widgets.dart';
 import 'package:smart_localize/smart_localize.dart';
 
 import 'home_screen.dart';
@@ -13,8 +13,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    MainWidgetsUtil.init(context,
-        designSize: const Size(375, 812), minTextAdapt: true);
+    MainWidgetsUtil.init(
+      context,
+      designSize: const Size(375, 812),
+      minTextAdapt: true,
+    );
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       supportedLocales: const [

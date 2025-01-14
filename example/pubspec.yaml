@@ -13,7 +13,8 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.8
-  smart_localize: ^0.0.8
+  smart_localize: ^0.0.16
+  main_widgets: ^0.2.7
   flutter_localizations:
     sdk: flutter
   main_text_field:

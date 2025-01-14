@@ -1,3 +1,7 @@
+## 0.0.14
+
+* make enhanced responsive
+
 ## 0.0.13
 
 * handle responsive

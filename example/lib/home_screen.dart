@@ -46,16 +46,12 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               MainTextField(
-                maxWidth: 500,
-                contentPadding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 30),
+                maxWidth: 700,
                 isRequired: false,
                 onSaved: (val) => textField1 = val,
-                cursorHeight: 40,
               ),
               MainTextField.email(
                 maxWidth: 500,
-                titlePadding: 12,
                 onChanged: (val) => setState(() {
                   email = val;
                   isEmailEmpty = email?.isEmpty ?? true;
@@ -76,12 +72,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   isConfirmPasswordEmpty = confirmPassword?.isEmpty ?? true;
                 }),
               ),
-              MainTextField.number(
-                maxWidth: 500,
-                onSaved: (val) => number = val,
-              ),
+              // MainTextField.number(
+              //   maxWidth: 500,
+              //   onSaved: (val) => number = val,
+              // ),
               MainTextField.phone(
-                maxWidth: 500,
                 onChangedCountryCode: (value) {
                   countryCode = value.toString();
                 },
