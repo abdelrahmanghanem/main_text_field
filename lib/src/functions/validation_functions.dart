@@ -40,7 +40,7 @@ String? validateEmailFormat(String? value) {
 ///
 /// - Returns: A localized error message if the phone number is invalid, or null if valid.
 String? validatePhoneFormat(String? value) {
-  const phoneRegex = r"^\+?[0-9]{10,12}$";
+  const phoneRegex = r"^\+?[0-9]{8,12}$";
   String trimmedValue = value?.trim() ?? '';
 
   if (trimmedValue.isEmpty) {
