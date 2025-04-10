@@ -77,6 +77,7 @@ class MainTextField extends StatefulWidget {
 
   /// A custom decoration for the input field.
   final InputDecoration? decoration;
+  final Iterable<String>? autofillHints;
 
   /// The action button to show on the keyboard (e.g., "done", "next"). Defaults to `TextInputAction.next`.
   final TextInputAction? textInputAction;
@@ -161,6 +162,7 @@ class MainTextField extends StatefulWidget {
   const MainTextField({
     super.key,
     this.maxWidth,
+    this.autofillHints,
     this.radius = 12,
     this.minLines = 1,
     this.keyboardType = TextInputType.text,
@@ -269,6 +271,7 @@ class MainTextField extends StatefulWidget {
     return _EmailMainTextField(
       showAsterisk: false,
       maxWidth: maxWidth,
+
       spaceBetween: spaceBetween,
       title: title,
       showPrefixIcon: showPrefixIcon,
@@ -749,6 +752,7 @@ class _MainTextFieldState extends State<MainTextField> {
           Directionality(
             textDirection: widget.textDirection ?? Directionality.of(context),
             child: TextFormField(
+              autofillHints: widget.autofillHints,
               // Limits the maximum number of characters that can be entered in the field.
               maxLength: widget.maxLength,
               // Callback triggered when the form field is tapped.

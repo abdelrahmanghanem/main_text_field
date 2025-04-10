@@ -237,6 +237,7 @@ class _PasswordMainTextFieldState extends State<_PasswordMainTextField> {
   @override
   Widget build(BuildContext context) {
     return MainTextField(
+      autofillHints: [AutofillHints.password],
       maxWidth: widget.maxWidth,
       title: widget.title ?? SmartLocalize.password,
       titleStyle: widget.titleStyle,

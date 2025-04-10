@@ -244,6 +244,7 @@ class _PhoneMainTextFieldState extends State<_PhoneMainTextField> {
   @override
   Widget build(BuildContext context) {
     return MainTextField(
+      autofillHints: [AutofillHints.username],
       maxWidth: widget.maxWidth,
       title: widget.title ?? SmartLocalize.phone,
       titleStyle: widget.titleStyle,
