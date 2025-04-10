@@ -233,6 +233,7 @@ class _EmailMainTextFieldState extends State<_EmailMainTextField> {
   @override
   Widget build(BuildContext context) {
     return MainTextField(
+      keyboardType: TextInputType.emailAddress,
       maxWidth: widget.maxWidth,
       title: widget.title ?? SmartLocalize.email,
       titleStyle: widget.titleStyle,
