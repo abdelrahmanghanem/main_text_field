@@ -1,3 +1,7 @@
+## 0.0.18
+
+* add autofillHints
+
 ## 0.0.17
 
 * add autofillHints
