@@ -187,7 +187,6 @@ class _PasswordMainTextField extends MainTextField {
     required super.titleStyle,
     required super.spaceBetween,
     required super.onTap,
-    required super.hideHintText,
     required super.inputFormatters,
     required super.readOnly,
     required super.initialValue,
@@ -205,26 +204,18 @@ class _PasswordMainTextField extends MainTextField {
     required super.textCapitalization,
     required super.textAlignVertical,
     required super.decoration,
-    required super.decorationType,
-    required super.borderColor,
     required super.filled,
     required super.fillColor,
     required super.prefixIcon,
     required super.suffixIcon,
     required super.contentPadding,
-    required super.prefixIconConstraints,
-    required super.suffixIconConstraints,
     required super.labelText,
-    required super.labelColor,
-    required super.errorColor,
     required super.hintText,
-    required super.hintStyle,
     required super.isDense,
     required super.isEnable,
     required super.hideAsterisk,
-    super.radius,
-    required super.showPrefixIcon,
     required super.cursorHeight,
+    required super.showPrefixIcon,
   });
 
   @override
@@ -240,12 +231,10 @@ class _PasswordMainTextFieldState extends State<_PasswordMainTextField> {
       autofillHints: [AutofillHints.password],
       maxWidth: widget.maxWidth,
       title: widget.title ?? SmartLocalize.password,
-      titleStyle: widget.titleStyle,
       isRequired: widget.isRequired,
       hideAsterisk: widget.hideAsterisk,
       spaceBetween: widget.spaceBetween,
       onTap: widget.onTap,
-      hideHintText: widget.hideHintText,
       validator: widget.validator ?? (val) => validatePasswordFormat(val),
       inputFormatters: [
         FilteringTextInputFormatter.deny(RegExp(r'\s')),
@@ -265,22 +254,16 @@ class _PasswordMainTextFieldState extends State<_PasswordMainTextField> {
       textCapitalization: widget.textCapitalization,
       textAlignVertical: widget.textAlignVertical,
       decoration: widget.decoration,
-      decorationType: widget.decorationType,
-      borderColor: widget.borderColor,
       filled: widget.filled,
       fillColor: widget.fillColor,
-      hintText: widget.hideHintText
-          ? null
-          : widget.hintText ?? SmartLocalizePlaceholder.enterPassword,
+      hintText: widget.hintText ?? SmartLocalizePlaceholder.enterPassword,
       prefixIcon: widget.prefixIcon ??
-          (widget.showPrefixIcon
-              ? const Padding(
-                  padding: EdgeInsets.all(10),
-                  child: PrefixIconWidget(
-                    assetPath: AppImages.lock,
-                  ),
-                )
-              : null),
+          const Padding(
+            padding: EdgeInsets.all(10),
+            child: PrefixIconWidget(
+              assetPath: AppImages.lock,
+            ),
+          ),
       suffixIcon: widget.suffixIcon ??
           IconButton(
             onPressed: () => setState(() {
@@ -291,27 +274,20 @@ class _PasswordMainTextFieldState extends State<_PasswordMainTextField> {
             ),
           ),
       contentPadding: widget.contentPadding,
-      prefixIconConstraints: widget.prefixIconConstraints,
-      suffixIconConstraints: widget.suffixIconConstraints,
       labelText: widget.labelText,
-      labelColor: widget.labelColor,
-      errorColor: widget.errorColor,
-      hintStyle: widget.hintStyle,
       isDense: widget.isDense,
       isEnable: widget.isEnable,
-      radius: widget.radius,
-      showPrefixIcon: widget.showPrefixIcon,
       cursorHeight: widget.cursorHeight,
+      showPrefixIcon: widget.showPrefixIcon,
       obscureText: !showPassword,
       obscuringCharacter: '*',
       textDirection: widget.textDirection,
       keyboardType: TextInputType.visiblePassword,
-      enabledBorder: widget.enabledBorder,
-      focusedBorder: widget.focusedBorder,
       minLines: widget.minLines,
       maxLines: widget.maxLines,
       maxLength: widget.maxLength,
       showAsterisk: widget.showAsterisk,
+      titleStyle: widget.titleStyle,
     );
   }
 }

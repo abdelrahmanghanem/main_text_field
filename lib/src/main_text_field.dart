@@ -17,17 +17,15 @@ part 'phone_main_text_field.dart';
 /// A custom text form field widget that provides a variety of configurable options
 /// including borders, icons, validation, and text input handling.
 class MainTextField extends StatefulWidget {
+  final bool? filled;
+  final Color? fillColor;
+
   /// control in maxWidth for ipad and default value is 370.
   final double? maxWidth;
 
-  /// The radius of the corners of the field. Defaults to `12`.
-  final double radius;
-
-  /// The color of the label text. Defaults to the theme's color if `null`.
-  final Color? labelColor;
-
   /// The minimum number of lines for the field. Defaults to `1`.
   final int minLines;
+  final TextStyle? titleStyle;
 
   /// The alignment of the text inside the form field. Defaults to `TextAlign.start`.
   final TextAlign? textAlign;
@@ -100,30 +98,12 @@ class MainTextField extends StatefulWidget {
   final bool isRequired;
   final bool hideAsterisk;
 
-  /// A flag to determine whether the form field should be filled with a background color.
-  final bool? filled;
-
   /// Padding around the content of the form field.
   final EdgeInsets? contentPadding;
-
-  /// The background color of the form field.
-  final Color? fillColor;
-
-  /// The border when the field is focused.
-  final InputBorder? focusedBorder;
+  final bool showPrefixIcon;
 
   /// A widget to display as a prefix icon inside the form field.
   final Widget? prefixIcon;
-  final bool showPrefixIcon;
-
-  /// Constraints for the prefix icon (e.g., size).
-  final BoxConstraints? prefixIconConstraints;
-
-  /// Constraints for the prefix icon (e.g., size).
-  final BoxConstraints? suffixIconConstraints;
-
-  /// The border when the field is enabled.
-  final InputBorder? enabledBorder;
 
   /// A widget to display as a suffix icon inside the form field.
   final Widget? suffixIcon;
@@ -133,52 +113,40 @@ class MainTextField extends StatefulWidget {
 
   /// Hint text displayed inside the field when it is empty.
   final String? hintText;
-  final bool hideHintText;
 
   /// A flag to control whether the form field is rendered densely.
   final bool isDense;
 
-  /// The style for the hint text inside the field.
-  final TextStyle? hintStyle;
-
   /// A flag that enables or disables the form field. Defaults to `true` (enabled).
   final bool isEnable;
 
-  /// A flag that enables or disables the form field. Defaults to `true` (enabled).
-  final Color? errorColor;
-  final Color? borderColor;
   final String? title;
-  final TextStyle? titleStyle;
 
   /// A flag to show an asterisk (*) next to the label for required fields. Defaults to `true`.
   final bool showAsterisk;
 
-  final DecorationType decorationType;
   final double? cursorHeight;
   final bool? obscureText;
   final String? obscuringCharacter;
   final TextDirection? textDirection;
 
   const MainTextField({
+    this.filled,
+    this.fillColor,
     super.key,
     this.maxWidth,
     this.autofillHints,
-    this.radius = 12,
     this.minLines = 1,
     this.keyboardType = TextInputType.text,
     this.maxLines = 1,
     this.spaceBetween = 4,
     this.readOnly = false,
-    this.showPrefixIcon = false,
     this.prefixIcon,
-    this.prefixIconConstraints,
     this.textInputAction = TextInputAction.next,
     this.showAsterisk = false,
     this.isEnable = true,
     this.cursorHeight = 18.0,
-    this.decorationType = DecorationType.outline,
     this.inputFormatters,
-    this.labelColor,
     this.hintTextDirection,
     this.initialValue,
     this.validator,
@@ -198,38 +166,27 @@ class MainTextField extends StatefulWidget {
     this.isRequired = true,
     this.hideAsterisk = false,
     this.isDense = false,
-    this.filled,
-    this.fillColor,
-    this.focusedBorder,
     this.contentPadding,
-    this.enabledBorder,
-    this.suffixIconConstraints,
     this.hintText,
-    this.hideHintText = false,
     this.labelText,
     this.suffixIcon,
-    this.hintStyle,
-    this.errorColor,
-    this.borderColor,
     this.title,
-    this.titleStyle,
     this.obscureText,
     this.obscuringCharacter,
     this.textDirection,
+    this.titleStyle,
+    this.showPrefixIcon = false,
   });
 
   factory MainTextField.email({
     double? maxWidth,
-    double radius = 12,
     double spaceBetween = 4,
     bool readOnly = false,
     bool isRequired = true,
     bool hideAsterisk = false,
     bool isDense = false,
     bool isEnable = true,
-    bool hideHintText = false,
     double? cursorHeight,
-    DecorationType decorationType = DecorationType.outline,
     EdgeInsets? contentPadding,
     TextAlign? textAlign,
     TextDirection? hintTextDirection,
@@ -239,7 +196,6 @@ class MainTextField extends StatefulWidget {
     void Function(String)? onChanged,
     VoidCallback? onEditingComplete,
     void Function()? onTap,
-    Color? labelColor,
     TextStyle? style,
     FocusNode? focusNode,
     TextEditingController? controller,
@@ -249,35 +205,24 @@ class MainTextField extends StatefulWidget {
     AutovalidateMode? autoValidateMode,
     List<TextInputFormatter>? inputFormatters,
     TextCapitalization? textCapitalization,
-    bool? filled,
-    Color? fillColor,
-    InputBorder? focusedBorder,
-    bool showPrefixIcon = false,
     Widget? prefixIcon,
-    BoxConstraints? prefixIconConstraints,
-    BoxConstraints? suffixIconConstraints,
-    InputBorder? enabledBorder,
+    bool showPrefixIcon = false,
     Widget? suffixIcon,
     String? labelText,
     String? hintText,
     String? title,
     bool hideTitle = false,
+    bool? filled,
+    Color? fillColor,
     TextStyle? titleStyle,
-    TextStyle? hintStyle,
-    Color? errorColor,
-    Color? borderColor,
     TextDirection? textDirection,
   }) {
     return _EmailMainTextField(
       showAsterisk: false,
       maxWidth: maxWidth,
-
       spaceBetween: spaceBetween,
       title: title,
-      showPrefixIcon: showPrefixIcon,
       hideTitle: hideTitle,
-      titleStyle: titleStyle,
-      hideHintText: hideHintText,
       initialValue: initialValue,
       onTap: onTap,
       onChanged: onChanged,
@@ -285,6 +230,7 @@ class MainTextField extends StatefulWidget {
       onSaved: onSave,
       validator: validator,
       textAlign: textAlign,
+      showPrefixIcon: showPrefixIcon,
       inputFormatters: inputFormatters,
       readOnly: readOnly,
       controller: controller,
@@ -296,42 +242,36 @@ class MainTextField extends StatefulWidget {
       focusNode: focusNode,
       textCapitalization: textCapitalization,
       textAlignVertical: textAlignVertical,
+      titleStyle: titleStyle,
       // inputDecoration
       decoration: decoration,
-      decorationType: decorationType,
-      borderColor: borderColor,
-      filled: filled,
-      fillColor: fillColor,
+
       prefixIcon: prefixIcon,
       suffixIcon: suffixIcon,
       contentPadding: contentPadding,
-      prefixIconConstraints: prefixIconConstraints,
-      suffixIconConstraints: suffixIconConstraints,
+
       labelText: labelText,
-      labelColor: labelColor,
-      errorColor: errorColor,
       hintText: hintText,
-      hintStyle: hintStyle,
       isDense: isDense,
       isEnable: isEnable,
+
       cursorHeight: cursorHeight,
       textDirection: textDirection,
+      filled: filled,
+      fillColor: fillColor,
     );
   }
 
   factory MainTextField.password({
     double? maxWidth,
-    double radius = 12,
     double spaceBetween = 4,
+    bool showPrefixIcon = false,
     bool readOnly = false,
     bool isRequired = true,
     bool hideAsterisk = false,
     bool isDense = false,
     bool isEnable = true,
-    bool hideHintText = false,
-    bool showPrefixIcon = false,
     double? cursorHeight,
-    DecorationType decorationType = DecorationType.outline,
     EdgeInsets? contentPadding,
     TextAlign? textAlign,
     String? title,
@@ -343,7 +283,6 @@ class MainTextField extends StatefulWidget {
     void Function(String)? onChanged,
     VoidCallback? onEditingComplete,
     void Function()? onTap,
-    Color? labelColor,
     TextStyle? style,
     FocusNode? focusNode,
     TextEditingController? controller,
@@ -359,26 +298,20 @@ class MainTextField extends StatefulWidget {
     /// The border when the field is focused.
     InputBorder? focusedBorder,
     Widget? prefixIcon,
-    BoxConstraints? prefixIconConstraints,
-    BoxConstraints? suffixIconConstraints,
     InputBorder? enabledBorder,
     Widget? suffixIcon,
     String? labelText,
     String? hintText,
-    TextStyle? hintStyle,
-    Color? errorColor,
-    Color? borderColor,
   }) {
     return _PasswordMainTextField(
       maxWidth: maxWidth,
       title: title,
+      showPrefixIcon: showPrefixIcon,
       titleStyle: titleStyle,
       spaceBetween: spaceBetween,
-      hideHintText: hideHintText,
       initialValue: initialValue,
       readOnly: readOnly,
       isEnable: isEnable,
-      showPrefixIcon: showPrefixIcon,
       onTap: onTap,
       onChanged: onChanged,
       onEditingComplete: onEditingComplete,
@@ -386,7 +319,6 @@ class MainTextField extends StatefulWidget {
       validator: validator,
       textAlign: textAlign,
       inputFormatters: inputFormatters,
-      radius: radius,
       controller: controller,
       style: style,
       autoValidateMode: autoValidateMode,
@@ -398,43 +330,35 @@ class MainTextField extends StatefulWidget {
       textAlignVertical: textAlignVertical,
       // inputDecoration
       decoration: decoration,
-      decorationType: decorationType,
-      borderColor: borderColor,
       filled: filled,
       fillColor: fillColor,
       prefixIcon: prefixIcon,
       suffixIcon: suffixIcon,
       contentPadding: contentPadding,
-      prefixIconConstraints: prefixIconConstraints,
-      suffixIconConstraints: suffixIconConstraints,
+
       labelText: labelText,
-      labelColor: labelColor,
-      errorColor: errorColor,
+
       hintText: hintText,
-      hintStyle: hintStyle,
       isDense: isDense,
       cursorHeight: cursorHeight,
     );
   }
 
   factory MainTextField.confirmPassword({
+    TextStyle? titleStyle,
+    bool showPrefixIcon = false,
     double maxWidth = 370,
-    double radius = 12,
     bool readOnly = false,
     bool isRequired = true,
     bool hideAsterisk = false,
     bool isDense = false,
     bool isEnable = true,
-    bool hideHintText = false,
     double spaceBetween = 4,
-    bool showPrefixIcon = false,
     double? cursorHeight,
     EdgeInsets? contentPadding,
-    DecorationType decorationType = DecorationType.outline,
     required String? passwordValue,
     TextAlign? textAlign,
     String? title,
-    TextStyle? titleStyle,
     TextDirection? hintTextDirection,
     String? initialValue,
     String? Function(String? val)? validator,
@@ -442,7 +366,6 @@ class MainTextField extends StatefulWidget {
     void Function(String)? onChanged,
     VoidCallback? onEditingComplete,
     void Function()? onTap,
-    Color? labelColor,
     TextStyle? style,
     FocusNode? focusNode,
     TextEditingController? controller,
@@ -454,27 +377,16 @@ class MainTextField extends StatefulWidget {
     TextCapitalization? textCapitalization,
     bool? filled,
     Color? fillColor,
-
-    /// The border when the field is focused.
-    InputBorder? focusedBorder,
     Widget? prefixIcon,
-    BoxConstraints? prefixIconConstraints,
-    BoxConstraints? suffixIconConstraints,
-    InputBorder? enabledBorder,
     Widget? suffixIcon,
     String? labelText,
     String? hintText,
-    TextStyle? hintStyle,
-    Color? errorColor,
-    Color? borderColor,
   }) {
     return _ConfirmPasswordMainTextField(
       maxWidth: maxWidth,
       title: title,
       showPrefixIcon: showPrefixIcon,
       spaceBetween: spaceBetween,
-      titleStyle: titleStyle,
-      hideHintText: hideHintText,
       passwordValue: passwordValue,
       initialValue: initialValue,
       onTap: onTap,
@@ -485,7 +397,6 @@ class MainTextField extends StatefulWidget {
       textAlign: textAlign,
       inputFormatters: inputFormatters,
       readOnly: readOnly,
-      radius: radius,
       controller: controller,
       style: style,
       autoValidateMode: autoValidateMode,
@@ -497,37 +408,28 @@ class MainTextField extends StatefulWidget {
       textAlignVertical: textAlignVertical,
       // inputDecoration
       decoration: decoration,
-      decorationType: decorationType,
-      borderColor: borderColor,
       filled: filled,
       fillColor: fillColor,
       prefixIcon: prefixIcon,
       suffixIcon: suffixIcon,
       contentPadding: contentPadding,
-      prefixIconConstraints: prefixIconConstraints,
-      suffixIconConstraints: suffixIconConstraints,
       labelText: labelText,
-      labelColor: labelColor,
-      errorColor: errorColor,
       hintText: hintText,
-      hintStyle: hintStyle,
       isDense: isDense,
       isEnable: isEnable,
       cursorHeight: cursorHeight,
+      titleStyle: titleStyle,
     );
   }
 
   factory MainTextField.number({
     double maxWidth = 370,
-    double radius = 12,
     bool readOnly = false,
     double spaceBetween = 4,
     bool isRequired = true,
     bool hideAsterisk = false,
     bool isDense = false,
     bool isEnable = true,
-    bool hideHintText = false,
-    bool showPrefixIcon = false,
     double? cursorHeight,
     EdgeInsets? contentPadding,
     TextAlign? textAlign,
@@ -540,7 +442,6 @@ class MainTextField extends StatefulWidget {
     void Function(String)? onChanged,
     VoidCallback? onEditingComplete,
     void Function()? onTap,
-    Color? labelColor,
     TextStyle? style,
     FocusNode? focusNode,
     TextEditingController? controller,
@@ -552,26 +453,14 @@ class MainTextField extends StatefulWidget {
     TextCapitalization? textCapitalization,
     bool? filled,
     Color? fillColor,
-
-    /// The border when the field is focused.
-    InputBorder? focusedBorder,
     Widget? prefixIcon,
-    BoxConstraints? prefixIconConstraints,
-    BoxConstraints? suffixIconConstraints,
-    InputBorder? enabledBorder,
     Widget? suffixIcon,
     String? labelText,
     String? hintText,
-    TextStyle? hintStyle,
-    Color? errorColor,
-    Color? borderColor,
-    DecorationType decorationType = DecorationType.outline,
   }) {
     return _NumberMainTextField(
       maxWidth: maxWidth,
       title: title,
-      showPrefixIcon: showPrefixIcon,
-      titleStyle: titleStyle,
       spaceBetween: spaceBetween,
       initialValue: initialValue,
       onTap: onTap,
@@ -582,7 +471,6 @@ class MainTextField extends StatefulWidget {
       textAlign: textAlign,
       inputFormatters: inputFormatters,
       readOnly: readOnly,
-      radius: radius,
       controller: controller,
       style: style,
       autoValidateMode: autoValidateMode,
@@ -592,34 +480,25 @@ class MainTextField extends StatefulWidget {
       focusNode: focusNode,
       textCapitalization: textCapitalization,
       textAlignVertical: textAlignVertical,
-      // inputDecoration
       decoration: decoration,
-      decorationType: decorationType,
-      borderColor: borderColor,
       filled: filled,
       fillColor: fillColor,
       prefixIcon: prefixIcon,
       suffixIcon: suffixIcon,
       contentPadding: contentPadding,
-      prefixIconConstraints: prefixIconConstraints,
-      suffixIconConstraints: suffixIconConstraints,
       labelText: labelText,
-      labelColor: labelColor,
-      errorColor: errorColor,
       hintText: hintText,
-      hideHintText: hideHintText,
-      hintStyle: hintStyle,
       isDense: isDense,
       isEnable: isEnable,
       cursorHeight: cursorHeight,
+      titleStyle: titleStyle,
     );
   }
 
   factory MainTextField.phone({
-    /// control in maxWidth for ipad and default value is 370.
     double maxWidth = 370,
-    double radius = 12,
     double spaceBetween = 4,
+    bool showPrefixIcon = false,
     String initialCountryCode = '+20',
     List<String> favoriteCountryCode = const ['+20', '+966'],
     double? cursorHeight,
@@ -628,13 +507,10 @@ class MainTextField extends StatefulWidget {
     bool hideAsterisk = false,
     bool isDense = false,
     bool isEnable = true,
-    bool hideHintText = false,
-    bool showPrefixIcon = false,
     EdgeInsets? contentPadding,
     void Function(CountryCode)? onChangedCountryCode,
     TextAlign? textAlign,
     String? title,
-    TextStyle? titleStyle,
     TextDirection? hintTextDirection,
     String? initialValue,
     String? Function(String? val)? validator,
@@ -642,8 +518,8 @@ class MainTextField extends StatefulWidget {
     void Function(String)? onChanged,
     VoidCallback? onEditingComplete,
     void Function()? onTap,
-    Color? labelColor,
     TextStyle? style,
+    TextStyle? titleStyle,
     FocusNode? focusNode,
     TextEditingController? controller,
     InputDecoration? decoration,
@@ -654,20 +530,10 @@ class MainTextField extends StatefulWidget {
     TextCapitalization? textCapitalization,
     bool? filled,
     Color? fillColor,
-
-    /// The border when the field is focused.
-    InputBorder? focusedBorder,
     Widget? prefixIcon,
-    BoxConstraints? prefixIconConstraints,
-    BoxConstraints? suffixIconConstraints,
-    InputBorder? enabledBorder,
     Widget? suffixIcon,
     String? labelText,
     String? hintText,
-    TextStyle? hintStyle,
-    Color? errorColor,
-    Color? borderColor,
-    DecorationType decorationType = DecorationType.outline,
     TextDirection textDirection = TextDirection.ltr,
   }) {
     return _PhoneMainTextField(
@@ -676,12 +542,12 @@ class MainTextField extends StatefulWidget {
       favoriteCountryCode: favoriteCountryCode,
       maxWidth: maxWidth,
       title: title,
+      showPrefixIcon: showPrefixIcon,
       titleStyle: titleStyle,
       spaceBetween: spaceBetween,
       initialValue: initialValue,
       onTap: onTap,
       textDirection: textDirection,
-      showPrefixIcon: showPrefixIcon,
       onChanged: onChanged,
       onEditingComplete: onEditingComplete,
       onSaved: onSaved,
@@ -689,7 +555,6 @@ class MainTextField extends StatefulWidget {
       textAlign: textAlign,
       inputFormatters: inputFormatters,
       readOnly: readOnly,
-      radius: radius,
       controller: controller,
       style: style,
       autoValidateMode: autoValidateMode,
@@ -701,21 +566,14 @@ class MainTextField extends StatefulWidget {
       textAlignVertical: textAlignVertical,
       // inputDecoration
       decoration: decoration,
-      decorationType: decorationType,
-      borderColor: borderColor,
       filled: filled,
       fillColor: fillColor,
       prefixIcon: prefixIcon,
       suffixIcon: suffixIcon,
       contentPadding: contentPadding,
-      prefixIconConstraints: prefixIconConstraints,
-      suffixIconConstraints: suffixIconConstraints,
       labelText: labelText,
-      labelColor: labelColor,
-      errorColor: errorColor,
       hintText: hintText,
-      hideHintText: hideHintText,
-      hintStyle: hintStyle,
+
       isDense: isDense,
       isEnable: isEnable,
       cursorHeight: cursorHeight,
@@ -809,28 +667,17 @@ class _MainTextFieldState extends State<MainTextField> {
               // Decoration to apply to the field. Falls back to a default style if not provided.
               decoration: widget.decoration ??
                   getInputDecoration(
-                    border: widget.borderColor ?? Colors.grey,
                     context: context,
-                    filled: widget.filled,
-                    fillColor: widget.fillColor,
                     prefixIcon: widget.prefixIcon,
                     suffixIcon: widget.suffixIcon,
                     contentPadding: widget.contentPadding ??
                         const EdgeInsets.symmetric(horizontal: 8),
-                    prefixIconConstraints: widget.prefixIconConstraints,
-                    suffixIconConstraints: widget.suffixIconConstraints,
                     labelText: widget.labelText,
-                    labelColor: widget.labelColor,
-                    error: widget.errorColor ??
-                        Theme.of(context).colorScheme.error,
                     hintText: widget.hintText,
-                    hintStyle: widget.hideHintText ? null : widget.hintStyle,
-                    decorationType: widget.decorationType,
                     isRequired: widget.isRequired,
                     showAsterisk: widget.showAsterisk,
                     isDense: widget.isDense,
                     isEnable: widget.isEnable,
-                    radius: widget.radius,
                   ),
 
               cursorHeight: widget.cursorHeight,

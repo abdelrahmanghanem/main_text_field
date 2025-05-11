@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:main_text_field/main_text_field.dart';
+import 'package:main_widgets/main_widgets.dart';
 import 'package:smart_localize/smart_localize.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -101,6 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           log('password => $password');
                           log('confirmPassword => $confirmPassword');
                           log('number => $number');
+                          context.push(Screen1());
                         }
                       },
                 child: Text(
@@ -111,6 +113,22 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class Screen1 extends StatelessWidget {
+  const Screen1({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('fkfk'),
+      ),
+      body: Column(
+        children: [Text('fkkfkf')],
       ),
     );
   }
