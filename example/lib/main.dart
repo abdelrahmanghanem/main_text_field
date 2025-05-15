@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:main_text_field/main_text_field.dart';
 import 'package:main_widgets/main_widgets.dart';
 import 'package:smart_localize/smart_localize.dart';
 
@@ -18,22 +19,25 @@ class MyApp extends StatelessWidget {
       designSize: const Size(375, 812),
       minTextAdapt: true,
     );
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      supportedLocales: const [
-        Locale('en'),
-        Locale('ar'),
-      ],
-      locale: const Locale('ar'),
-      localeResolutionCallback: (locale, supportedLocales) =>
-          locale ?? const Locale('ar'),
-      localizationsDelegates: context.smartLocalizeDelegates,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+    return MainTextFiledConfigProvider(
+      config: const ConfigModel(defaultWidth: 250, defaultHeight: 50),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        supportedLocales: const [
+          Locale('en'),
+          Locale('ar'),
+        ],
+        locale: const Locale('ar'),
+        localeResolutionCallback: (locale, supportedLocales) =>
+            locale ?? const Locale('ar'),
+        localizationsDelegates: context.smartLocalizeDelegates,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        home: const HomeScreen(),
       ),
-      home: const HomeScreen(),
     );
   }
 }
