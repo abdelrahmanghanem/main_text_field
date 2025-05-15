@@ -347,7 +347,7 @@ class MainTextField extends StatefulWidget {
   factory MainTextField.confirmPassword({
     TextStyle? titleStyle,
     bool showPrefixIcon = false,
-    double maxWidth = 370,
+    double? maxWidth,
     bool readOnly = false,
     bool isRequired = true,
     bool hideAsterisk = false,
@@ -423,7 +423,7 @@ class MainTextField extends StatefulWidget {
   }
 
   factory MainTextField.number({
-    double maxWidth = 370,
+    double? maxWidth,
     bool readOnly = false,
     double spaceBetween = 4,
     bool isRequired = true,
@@ -496,7 +496,7 @@ class MainTextField extends StatefulWidget {
   }
 
   factory MainTextField.phone({
-    double maxWidth = 370,
+    double? maxWidth,
     double spaceBetween = 4,
     bool showPrefixIcon = false,
     String initialCountryCode = '+20',
@@ -587,8 +587,11 @@ class MainTextField extends StatefulWidget {
 class _MainTextFieldState extends State<MainTextField> {
   @override
   Widget build(BuildContext context) {
+    final config = MainTextFiledConfigProvider.of(context);
+
     return ConstrainedBox(
-      constraints: BoxConstraints(maxWidth: widget.maxWidth ?? 370),
+      constraints:
+          BoxConstraints(maxWidth: widget.maxWidth ?? config.defaultWidth),
       child: Column(
         children: [
           if (widget.title != null)
