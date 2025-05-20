@@ -17,7 +17,7 @@ class MainTextFiledConfigProvider extends InheritedWidget {
     return context
             .dependOnInheritedWidgetOfExactType<MainTextFiledConfigProvider>()
             ?.config ??
-        const ConfigModel(defaultWidth: 370, defaultHeight: 50);
+        const ConfigModel(defaultWidth: 370, defaultHeight: 44);
   }
 
   @override

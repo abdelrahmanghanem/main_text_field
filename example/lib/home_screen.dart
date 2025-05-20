@@ -47,26 +47,26 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               MainTextField(
-                maxWidth: 700,
+                // maxWidth: 700,
                 isRequired: false,
                 onSaved: (val) => textField1 = val,
               ),
               MainTextField.email(
-                maxWidth: 500,
+                // maxWidth: 500,
                 onChanged: (val) => setState(() {
                   email = val;
                   isEmailEmpty = email?.isEmpty ?? true;
                 }),
               ),
               MainTextField.password(
-                maxWidth: 500,
+                // maxWidth: 500,
                 onChanged: (val) => setState(() {
                   password = val;
                   isPasswordEmpty = password?.isEmpty ?? true;
                 }),
               ),
               MainTextField.confirmPassword(
-                maxWidth: 500,
+                // maxWidth: 500,
                 passwordValue: password,
                 onChanged: (val) => setState(() {
                   confirmPassword = val;

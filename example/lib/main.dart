@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MainTextFiledConfigProvider(
-      config: const ConfigModel(defaultWidth: 250, defaultHeight: 50),
+      config: const ConfigModel(defaultWidth: 150, defaultHeight: 50),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         supportedLocales: const [
