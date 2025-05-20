@@ -125,10 +125,10 @@ class Screen1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('fkfk'),
+        title: Text('Screen 1'),
       ),
       body: Column(
-        children: [Text('fkkfkf')],
+        children: [Text('Hello from Screen 1')],
       ),
     );
   }
