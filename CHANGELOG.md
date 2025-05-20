@@ -1,3 +1,6 @@
+## 0.0.19
+
+* add mainConfig to set global configuration from outside of app theme
 ## 0.0.18
 
 * add autofillHints
