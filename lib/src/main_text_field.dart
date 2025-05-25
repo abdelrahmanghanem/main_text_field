@@ -594,7 +594,7 @@ class _MainTextFieldState extends State<MainTextField> {
           BoxConstraints(maxWidth: widget.maxWidth ?? config.defaultWidth),
       child: Column(
         children: [
-          if (widget.title != null)
+          if (widget.title != null) ...[
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -609,7 +609,8 @@ class _MainTextFieldState extends State<MainTextField> {
                 // button ?? const SizedBox.shrink()
               ],
             ),
-          SizedBox(height: widget.spaceBetween),
+            SizedBox(height: widget.spaceBetween),
+          ],
           Directionality(
             textDirection: widget.textDirection ?? Directionality.of(context),
             child: TextFormField(
