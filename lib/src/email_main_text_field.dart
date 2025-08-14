@@ -76,6 +76,7 @@ class _EmailMainTextFieldState extends State<_EmailMainTextField> {
       textCapitalization: widget.textCapitalization,
       textAlignVertical: widget.textAlignVertical,
       decoration: widget.decoration,
+      textDirection: widget.textDirection,
       prefixIcon: widget.prefixIcon ??
           (widget.showPrefixIcon
               ? const Padding(

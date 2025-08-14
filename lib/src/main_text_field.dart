@@ -302,6 +302,7 @@ class MainTextField extends StatefulWidget {
     Widget? suffixIcon,
     String? labelText,
     String? hintText,
+    TextDirection textDirection = TextDirection.ltr,
   }) {
     return _PasswordMainTextField(
       maxWidth: maxWidth,
@@ -335,7 +336,7 @@ class MainTextField extends StatefulWidget {
       prefixIcon: prefixIcon,
       suffixIcon: suffixIcon,
       contentPadding: contentPadding,
-
+      textDirection: textDirection,
       labelText: labelText,
 
       hintText: hintText,
@@ -380,6 +381,7 @@ class MainTextField extends StatefulWidget {
     Widget? prefixIcon,
     Widget? suffixIcon,
     String? labelText,
+    TextDirection textDirection = TextDirection.ltr,
     String? hintText,
   }) {
     return _ConfirmPasswordMainTextField(
@@ -418,7 +420,7 @@ class MainTextField extends StatefulWidget {
       isDense: isDense,
       isEnable: isEnable,
       cursorHeight: cursorHeight,
-      titleStyle: titleStyle,
+      titleStyle: titleStyle, textDirection: textDirection,
     );
   }
 
