@@ -1,3 +1,6 @@
+## 0.0.21
+
+* update password text filed text direction
 ## 0.0.20
 
 * fix: remove SizedBox if title not provided
