@@ -216,6 +216,7 @@ class _PasswordMainTextField extends MainTextField {
     required super.hideAsterisk,
     required super.cursorHeight,
     required super.showPrefixIcon,
+    required super.textDirection,
   });
 
   @override

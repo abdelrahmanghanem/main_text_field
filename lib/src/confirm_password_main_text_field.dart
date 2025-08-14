@@ -39,6 +39,7 @@ class _ConfirmPasswordMainTextField extends MainTextField {
     required super.showPrefixIcon,
     required super.cursorHeight,
     required super.titleStyle,
+    required super.textDirection,
   });
 
   @override
@@ -110,6 +111,7 @@ class _ConfirmPasswordMainTextFieldState
           hideAsterisk: widget.hideAsterisk,
           labelText: widget.labelText,
           filled: widget.filled,
+          textDirection: widget.textDirection,
           fillColor: widget.fillColor,
           contentPadding: widget.contentPadding,
           obscureText: !showPassword,
