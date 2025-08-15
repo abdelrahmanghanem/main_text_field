@@ -259,12 +259,14 @@ class _PasswordMainTextFieldState extends State<_PasswordMainTextField> {
       fillColor: widget.fillColor,
       hintText: widget.hintText ?? SmartLocalizePlaceholder.enterPassword,
       prefixIcon: widget.prefixIcon ??
-          const Padding(
-            padding: EdgeInsets.all(10),
-            child: PrefixIconWidget(
-              assetPath: AppImages.lock,
-            ),
-          ),
+          (widget.showPrefixIcon
+              ? const Padding(
+                  padding: EdgeInsets.all(10),
+                  child: PrefixIconWidget(
+                    assetPath: AppImages.lock,
+                  ),
+                )
+              : null),
       suffixIcon: widget.suffixIcon ??
           IconButton(
             onPressed: () => setState(() {

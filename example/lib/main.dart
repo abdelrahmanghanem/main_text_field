@@ -14,14 +14,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MainTextFiledConfigProvider(
-      config: const ConfigModel(defaultWidth: 150, defaultHeight: 50),
+      config: const ConfigModel(defaultWidth: 250, defaultHeight: 50),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         supportedLocales: const [
           Locale('en'),
           Locale('ar'),
         ],
-        locale: const Locale('ar'),
+        locale: const Locale('en'),
         localeResolutionCallback: (locale, supportedLocales) =>
             locale ?? const Locale('ar'),
         localizationsDelegates: context.smartLocalizeDelegates,
