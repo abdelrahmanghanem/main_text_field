@@ -215,7 +215,7 @@ class MainTextField extends StatefulWidget {
     bool? filled,
     Color? fillColor,
     TextStyle? titleStyle,
-    TextDirection? textDirection,
+    TextDirection textDirection = TextDirection.ltr,
   }) {
     return _EmailMainTextField(
       showAsterisk: false,
@@ -265,7 +265,7 @@ class MainTextField extends StatefulWidget {
   factory MainTextField.password({
     double? maxWidth,
     double spaceBetween = 4,
-    bool showPrefixIcon = false,
+    bool showPrefixIcon = true,
     bool readOnly = false,
     bool isRequired = true,
     bool hideAsterisk = false,
@@ -347,7 +347,7 @@ class MainTextField extends StatefulWidget {
 
   factory MainTextField.confirmPassword({
     TextStyle? titleStyle,
-    bool showPrefixIcon = false,
+    bool showPrefixIcon = true,
     double? maxWidth,
     bool readOnly = false,
     bool isRequired = true,
@@ -680,6 +680,7 @@ class _MainTextFieldState extends State<MainTextField> {
                         const EdgeInsets.symmetric(horizontal: 8),
                     labelText: widget.labelText,
                     hintText: widget.hintText,
+                    hintTextDirection: widget.hintTextDirection,
                     isRequired: widget.isRequired,
                     showAsterisk: widget.showAsterisk,
                     isDense: widget.isDense,

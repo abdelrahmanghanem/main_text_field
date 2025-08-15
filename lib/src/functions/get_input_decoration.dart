@@ -33,12 +33,14 @@ InputDecoration getInputDecoration({
   bool isRequired = false,
   EdgeInsetsGeometry? contentPadding,
   TextStyle? floatingLabelStyle,
+  required TextDirection? hintTextDirection,
 }) {
   return InputDecoration(
     contentPadding: contentPadding ?? EdgeInsets.zero,
     isDense: isDense,
     enabled: isEnable,
     hintText: hintText,
+    hintTextDirection: hintTextDirection,
     prefixIcon: prefixIcon,
     suffixIcon: suffixIcon,
     label: labelText != null
