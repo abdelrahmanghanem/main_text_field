@@ -46,13 +46,14 @@ class _HomeScreenState extends State<HomeScreen> {
             spacing: 12,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              MainTextField(
-                // maxWidth: 700,
-                isRequired: false,
-                onSaved: (val) => textField1 = val,
-              ),
+              // MainTextField(
+              //   // maxWidth: 700,
+              //   isRequired: false,
+              //   onSaved: (val) => textField1 = val,
+              // ),
               MainTextField.email(
                 // maxWidth: 500,
+                showPrefixIcon: true,
                 onChanged: (val) => setState(() {
                   email = val;
                   isEmailEmpty = email?.isEmpty ?? true;
